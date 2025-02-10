@@ -32,4 +32,10 @@ class StateController extends Controller
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function destroy(State $state): JsonResponse
+    {
+        $state->delete();
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
