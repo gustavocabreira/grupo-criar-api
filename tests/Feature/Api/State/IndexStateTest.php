@@ -34,7 +34,7 @@ test('it should be able to list all states paginated', function () {
         ->and($response->json()['total'])->toBe(5);
 });
 
-test('it should be able to set how many states will be returned per page', function() {
+test('it should be able to set how many states will be returned per page', function () {
     State::factory()->createMany(5);
 
     $payload = [
@@ -51,4 +51,20 @@ test('it should be able to set how many states will be returned per page', funct
         ->and($response->json()['total'])->toBe(5);
 });
 
+test('it should be able to changes pages', function () {
+    State::factory()->createMany(5);
 
+    $payload = [
+        'perPage' => 2,
+        'page' => 2,
+    ];
+
+    $response = $this->getJson(route('api.states.index', $payload));
+
+    $response->assertStatus(Response::HTTP_OK);
+
+    expect($response->json()['data'])->toHaveCount(2)
+        ->and($response->json()['current_page'])->toBe($payload['page'])
+        ->and($response->json()['per_page'])->toBe($payload['perPage'])
+        ->and($response->json()['total'])->toBe(5);
+});
