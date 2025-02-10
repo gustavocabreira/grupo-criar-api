@@ -7,10 +7,22 @@ use App\Http\Requests\City\CreateCityRequest;
 use App\Http\Requests\City\UpdateCityRequest;
 use App\Models\City;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CityController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        $request->validate([
+            'perPage' => ['sometimes', 'integer', 'min:1'],
+        ]);
+
+        $cities = City::query()->with('state')->paginate($request->input('perPage') ?? 10);
+
+        return response()->json($cities, Response::HTTP_OK);
+    }
+
     public function store(CreateCityRequest $request): JsonResponse
     {
         $validated = $request->validated();
