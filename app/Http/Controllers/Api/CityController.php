@@ -3,19 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\City\CreateCityRequest;
 use App\Models\City;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CityController extends Controller
 {
-    public function store(Request $request): JsonResponse
+    public function store(CreateCityRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'state_id' => ['required', 'integer', 'exists:states,id'],
-        ]);
+        $validated = $request->validated();
 
         $city = City::query()->create($validated);
 

@@ -4,8 +4,8 @@ use App\Models\City;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
-test('it should be able to create a new city', function() {
-    $table = new City();
+test('it should be able to create a new city', function () {
+    $table = new City;
     $payload = City::factory()->make()->toArray();
 
     $response = $this->postJson(route('api.cities.store'), $payload);
@@ -29,10 +29,10 @@ dataset('invalid_payload', [
     ],
     'state id that does not exist' => [
         ['state_id' => -1], ['state_id' => 'The selected state id is invalid.'],
-    ]
+    ],
 ]);
 
-test('it should return unprocessable entity when trying to create a new city with an invalid payload', function($payload, $expectedErrors) {
+test('it should return unprocessable entity when trying to create a new city with an invalid payload', function ($payload, $expectedErrors) {
     $key = array_keys($expectedErrors);
     $model = new City;
 
