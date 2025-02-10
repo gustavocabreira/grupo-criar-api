@@ -5,7 +5,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 test('it should be able to update a city', function () {
-    $model = new City();
+    $model = new City;
     $city = City::factory()->create();
     $payload = City::factory()->make()->toArray();
 

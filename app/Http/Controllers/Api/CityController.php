@@ -7,7 +7,6 @@ use App\Http\Requests\City\CreateCityRequest;
 use App\Http\Requests\City\UpdateCityRequest;
 use App\Models\City;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CityController extends Controller
@@ -31,6 +30,13 @@ class CityController extends Controller
         $validated = $request->validated();
 
         $city->update($validated);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function destroy(City $city): JsonResponse
+    {
+        $city->delete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
