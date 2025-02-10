@@ -17,6 +17,7 @@ class State extends Model
     protected $fillable = [
         'acronym',
         'name',
+        'is_active',
     ];
 
     protected $casts = [

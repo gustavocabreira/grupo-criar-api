@@ -20,7 +20,6 @@ class StateFactory extends Factory
         return [
             'name' => fake()->name,
             'acronym' => Str::upper(substr(fake()->name, 0, 2)),
-            'is_active' => true,
         ];
     }
 }
