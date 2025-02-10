@@ -8,10 +8,18 @@ use App\Http\Requests\State\CreateRequest;
 use App\Http\Requests\State\UpdateRequest;
 use App\Models\State;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class StateController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        $states = State::query()->paginate($request->input('perPage') ?? 10);
+
+        return response()->json($states, Response::HTTP_OK);
+    }
+
     public function store(CreateRequest $request, CreateStateAction $action): JsonResponse
     {
         $state = $action->execute($request->validated());
@@ -36,6 +44,7 @@ class StateController extends Controller
     public function destroy(State $state): JsonResponse
     {
         $state->delete();
+
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
