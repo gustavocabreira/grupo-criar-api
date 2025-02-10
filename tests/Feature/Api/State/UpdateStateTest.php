@@ -61,7 +61,7 @@ test('it should return unprocessable entity when trying to create a new state wi
     $this->assertDatabaseCount($model->getTable(), 1);
 })->with('invalid_payload');
 
-test('it should return the acronym has been taken when trying to update a state with an existing acronym', function () {
+test('it should return the acronym has already been taken when trying to update a state with an existing acronym', function () {
     $model = new State;
     $otherState = State::factory()->create();
     $state = State::factory()->create(['acronym' => 'AB']);
