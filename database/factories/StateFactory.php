@@ -19,7 +19,6 @@ class StateFactory extends Factory
         return [
             'name' => fake()->name,
             'acronym' => strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter()),
-            'is_active' => $this->faker->boolean(),
         ];
     }
 }

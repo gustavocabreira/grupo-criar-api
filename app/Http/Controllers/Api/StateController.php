@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Actions\State\CreateStateAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\State\CreateRequest;
-use App\Http\Requests\State\UpdateRequest;
+use App\Http\Requests\State\CreateStateRequest;
+use App\Http\Requests\State\UpdateStateRequest;
 use App\Models\State;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class StateController extends Controller
         return response()->json($states, Response::HTTP_OK);
     }
 
-    public function store(CreateRequest $request, CreateStateAction $action): JsonResponse
+    public function store(CreateStateRequest $request, CreateStateAction $action): JsonResponse
     {
         $state = $action->execute($request->validated());
 
@@ -32,7 +32,7 @@ class StateController extends Controller
         return response()->json($state, Response::HTTP_OK);
     }
 
-    public function update(State $state, UpdateRequest $request): JsonResponse
+    public function update(State $state, UpdateStateRequest $request): JsonResponse
     {
         $validated = $request->validated();
 

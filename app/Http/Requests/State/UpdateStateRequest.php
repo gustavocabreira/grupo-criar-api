@@ -4,7 +4,7 @@ namespace App\Http\Requests\State;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class UpdateStateRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -13,9 +13,11 @@ class CreateRequest extends FormRequest
 
     public function rules(): array
     {
+        $state = $this->route('state');
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'acronym' => ['required', 'string', 'size:2', 'unique:states,acronym'],
+            'acronym' => ['required', 'string', 'size:2', 'unique:states,acronym,'.$state?->id],
         ];
     }
 }
