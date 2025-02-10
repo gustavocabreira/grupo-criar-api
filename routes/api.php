@@ -10,4 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::name('api.')->group(function () {
     Route::apiResource('states', StateController::class);
+    Route::patch('states/{state}/set-active-status', [StateController::class, 'setActiveStatus'])->name('states.set-active-status');
 });

@@ -47,4 +47,15 @@ class StateController extends Controller
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function setActiveStatus(State $state, Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'is_active' => ['required', 'boolean'],
+        ]);
+
+        $state->update($validated);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
