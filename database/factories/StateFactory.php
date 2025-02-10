@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\State>
@@ -19,7 +18,7 @@ class StateFactory extends Factory
     {
         return [
             'name' => fake()->name,
-            'acronym' => Str::upper(substr(fake()->name, 0, 2)),
+            'acronym' => strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter()),
         ];
     }
 }
