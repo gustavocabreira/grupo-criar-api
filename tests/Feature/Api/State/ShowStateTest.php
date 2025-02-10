@@ -24,3 +24,12 @@ test('it should be able to find a state', function () {
         ->and($foundStateKey)
         ->toBeFalse();
 });
+
+test('it should return not found when trying to find a state that does not exist', function () {
+    $response = $this->getJson(route('api.states.show', 99));
+
+    $response
+        ->assertStatus(Response::HTTP_NOT_FOUND)
+        ->assertJsonPath('message', 'No query results for model [App\Models\State] 99');
+
+});
