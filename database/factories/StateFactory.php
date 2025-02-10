@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,16 +10,17 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class StateFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
+        $word = strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter());
+
+        while(State::query()->where('acronym', $word)->exists()) {
+            $word = strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter());
+        }
+
         return [
             'name' => fake()->name,
-            'acronym' => strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter()),
+            'acronym' => $word,
         ];
     }
 }
