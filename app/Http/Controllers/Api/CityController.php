@@ -18,4 +18,9 @@ class CityController extends Controller
 
         return response()->json($city, Response::HTTP_CREATED);
     }
+
+    public function show(City $city): JsonResponse
+    {
+        return response()->json($city, Response::HTTP_OK);
+    }
 }
