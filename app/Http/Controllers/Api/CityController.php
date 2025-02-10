@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\City\CreateCityRequest;
+use App\Http\Requests\City\UpdateCityRequest;
 use App\Models\City;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,12 +26,9 @@ class CityController extends Controller
         return response()->json($city, Response::HTTP_OK);
     }
 
-    public function update(City $city, Request $request): JsonResponse
+    public function update(City $city, UpdateCityRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'state_id' => ['required', 'integer', 'exists:states,id'],
-        ]);
+        $validated = $request->validated();
 
         $city->update($validated);
 
