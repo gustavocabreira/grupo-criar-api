@@ -12,15 +12,15 @@ class StateFactory extends Factory
 {
     public function definition(): array
     {
-        $word = strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter());
+        $acronym = strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter());
 
-        while(State::query()->where('acronym', $word)->exists()) {
-            $word = strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter());
+        while(State::query()->where('acronym', $acronym)->exists()) {
+            $acronym = strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter());
         }
 
         return [
             'name' => fake()->name,
-            'acronym' => $word,
+            'acronym' => $acronym,
         ];
     }
 }
