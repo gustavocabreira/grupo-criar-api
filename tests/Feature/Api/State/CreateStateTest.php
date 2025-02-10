@@ -51,3 +51,23 @@ test('it should return unprocessable entity when trying to create a new state wi
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 0);
 })->with('invalid_payload');
+
+test('it should return the acronym has been taken when trying to create a state with an existing acronym', function() {
+    $model = new State();
+    $state = State::factory()->create(['acronym' => 'AB']);
+
+    $payload = [
+        'name' => fake()->name(),
+        'acronym' => $state->acronym,
+    ];
+
+    $response = $this->postJson(route('api.states.store'), $payload);
+
+    $response
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        ->assertJsonValidationErrors(['acronym']);
+
+    $response->assertJsonPath("errors.acronym.0", 'The acronym has already been taken.');
+    $this->assertDatabaseMissing($model->getTable(), $payload);
+    $this->assertDatabaseCount($model->getTable(), 1);
+});
