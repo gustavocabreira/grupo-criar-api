@@ -17,7 +17,7 @@ test('it should be able to list all cities paginated', function () {
         ->assertJsonStructure([
             'current_page',
             'data' => [
-                '*' => [...$model->getFillable(), 'state' => (new State())->getFillable()],
+                '*' => [...$model->getFillable(), 'state' => new State()->getFillable()],
             ],
             'first_page_url',
             'from',
