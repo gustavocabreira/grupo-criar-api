@@ -1,0 +1,75 @@
+services:
+    laravel:
+        container_name: ${APP_NAME}-laravel
+        build:
+            context: .
+            args:
+                - USER_ID=${USER_ID:-1000}
+                - GROUP_ID=${GROUP_ID:-1000}
+        env_file:
+            - ./.env
+        volumes:
+            - ../../:/var/www
+            - 'laravel_storage:/var/www/storage'
+            - '/home/${HOST_USER}/.ssh:/home/laravel/.ssh'
+            - ./supervisor.conf:/etc/supervisor.conf
+        networks:
+            - internal
+    redis:
+        container_name: ${APP_NAME}-redis
+        image: redis:latest
+        ports:
+            - 6379:6379
+        networks:
+            - internal
+        env_file:
+            - ./.env
+        volumes:
+            - redis-data:/data
+    mysql:
+        container_name: ${APP_NAME}-mysql
+        image: mysql:8.4.0
+        ports:
+            - 3306:3306
+        env_file:
+            - ./.env
+        environment:
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: 'laravel'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'mysql-data:/var/lib/mysql'
+        networks:
+            - internal
+    nginx:
+        container_name: ${APP_NAME}-nginx
+        image: nginx:stable
+        ports:
+            - 80:80
+        env_file:
+            - ./.env
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/logs:/var/log/nginx
+            - ./nginx/app.conf.template:/etc/nginx/templates/app.conf.template:ro'
+        networks:
+            - internal
+            - spa_network
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+
+
+networks:
+    internal:
+        driver: bridge
+    spa_network:
+        driver: bridge
+
+volumes:
+    redis-data:
+        name: ${APP_NAME}-redis-data
+    mysql-data:
+        name: ${APP_NAME}-mysql-db
+    laravel_storage:
+        name: ${APP_NAME}-laravel_storage
