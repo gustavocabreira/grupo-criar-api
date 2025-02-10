@@ -1,4 +1,4 @@
-FROM php:8.3-cli-alpine
+FROM php:8.4-cli-alpine
 
 ARG USER_ID
 ARG GROUP_ID
@@ -28,7 +28,7 @@ RUN apk update && apk add --no-cache \
 
 RUN apk add --no-cache autoconf g++ make
 RUN apk add rsync
-
+RUN apk add --no-cache sqlite sqlite-dev
 
 # Instala extensões do PHP
 RUN pecl install swoole && docker-php-ext-enable swoole
