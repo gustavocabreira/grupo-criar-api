@@ -52,4 +52,15 @@ class CityController extends Controller
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function setActiveStatus(City $city, Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'is_active' => ['required', 'boolean'],
+        ]);
+
+        $city->update($validated);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }

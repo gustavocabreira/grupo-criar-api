@@ -14,4 +14,5 @@ Route::name('api.')->group(function () {
     Route::patch('states/{state}/set-active-status', [StateController::class, 'setActiveStatus'])->name('states.set-active-status');
 
     Route::apiResource('cities', CityController::class);
+    Route::patch('cities/{city}/set-active-status', [CityController::class, 'setActiveStatus'])->name('cities.set-active-status');
 });
