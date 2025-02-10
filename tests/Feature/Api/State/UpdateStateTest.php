@@ -4,14 +4,14 @@ use App\Models\State;
 use Illuminate\Http\Response;
 
 test('it should be able to update a state', function () {
-    $model = new State();
+    $model = new State;
 
     $state = State::factory()->create();
-    $updatedState = State::factory()->make(['acronym' => $state->acronym])->toArray();
+    $payload = State::factory()->make(['acronym' => $state->acronym])->toArray();
 
-    $response = $this->putJson(route('api.states.update', ['state' => $state->id]), $updatedState);
+    $response = $this->putJson(route('api.states.update', ['state' => $state->id]), $payload);
 
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
-    $this->assertDatabaseHas($model->getTable(), ['id' => $state->id, ...$updatedState]);
+    $this->assertDatabaseHas($model->getTable(), ['id' => $state->id, ...$payload]);
 });
