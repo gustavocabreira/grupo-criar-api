@@ -61,3 +61,31 @@ test('it should return unprocessable entity when trying to assign a new city to 
 
     $this->assertDatabaseCount('cluster_city_pivot', 0);
 })->with('invalid_payload');
+
+test('it should set the previous city x cluster is_active as false when assigning a city to a new cluster', function () {
+    $oldCluster = Cluster::factory()->create();
+    $newCluster = Cluster::factory()->create();
+
+    $city = City::factory()->create();
+    $oldCluster->cities()->attach($city, ['is_active' => true]);
+
+    $payload = [
+        'cities' => [$city->id],
+    ];
+
+    $response = $this->postJson(route('api.clusters.cities.store', ['cluster' => $newCluster->id]), $payload);
+
+    $response->assertStatus(Response::HTTP_CREATED);
+
+    $this->assertDatabaseHas('cluster_city_pivot', [
+        'cluster_id' => $oldCluster->id,
+        'city_id' => $city->id,
+        'is_active' => false,
+    ]);
+
+    $this->assertDatabaseHas('cluster_city_pivot', [
+        'cluster_id' => $newCluster->id,
+        'city_id' => $city->id,
+        'is_active' => true,
+    ]);
+});

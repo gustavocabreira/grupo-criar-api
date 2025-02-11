@@ -7,6 +7,7 @@ use App\Models\Cluster;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ClusterCityController extends Controller
 {
@@ -17,8 +18,15 @@ class ClusterCityController extends Controller
             'cities.*' => 'exists:cities,id'
         ]);
 
-        $cluster->cities()->attach($request->input('cities'));
-        $cluster->load('cities');
+        DB::transaction(function () use ($cluster, $request) {
+            DB::table('cluster_city_pivot')
+                ->whereIn('city_id', $request->input('cities'))
+                ->where('cluster_id', '!=', $cluster->id)
+                ->update(['is_active' => false]);
+
+            $cluster->cities()->attach($request->input('cities'), ['is_active' => true]);
+            $cluster->load('cities');
+        });
 
         return response()->json($cluster, Response::HTTP_CREATED);
     }
