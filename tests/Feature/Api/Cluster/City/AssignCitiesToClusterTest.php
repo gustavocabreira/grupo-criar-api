@@ -26,3 +26,38 @@ test('it should be able to assign cities to a cluster', function () {
 
     $this->assertDatabaseCount('cluster_city_pivot', 3);
 });
+
+dataset('invalid_payload', [
+    'empty cities' => [
+        ['cities' => []], ['cities' => 'The cities field is required.'],
+    ],
+    'city that does not exist' => [
+        ['cities' => [-1]], ['cities.0' => 'The selected cities.0 is invalid.'],
+    ],
+]);
+
+test('it should return unprocessable entity when trying to assign a new city to a cluster with an invalid payload', function ($payload, $expectedErrors) {
+    $key = array_keys($expectedErrors);
+
+    $cluster = Cluster::factory()->create();
+
+    $response = $this->postJson(route('api.clusters.cities.store', ['cluster' => $cluster->id]), $payload);
+
+    $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+    $response->assertJsonValidationErrors($key);
+
+    $response->assertJsonFragment([
+        'errors' => [
+            $key[0] => [$expectedErrors[$key[0]]]
+        ]
+    ]);
+
+    if (!empty($payload['cities'])) {
+        $this->assertDatabaseMissing('cluster_city_pivot', [
+            'city_id' => $payload['cities'][0],
+        ]);
+    }
+
+    $this->assertDatabaseCount('cluster_city_pivot', 0);
+})->with('invalid_payload');

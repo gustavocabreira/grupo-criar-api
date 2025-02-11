@@ -12,6 +12,11 @@ class ClusterCityController extends Controller
 {
     public function store(Cluster $cluster, Request $request): JsonResponse
     {
+        $request->validate([
+            'cities' => 'required|array',
+            'cities.*' => 'exists:cities,id'
+        ]);
+
         $cluster->cities()->attach($request->input('cities'));
         $cluster->load('cities');
 
