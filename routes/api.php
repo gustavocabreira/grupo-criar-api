@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CampaignClusterController;
 use App\Http\Controllers\Api\CampaignController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\ClusterCityController;
@@ -32,4 +33,10 @@ Route::name('api.')->group(function () {
 
     Route::apiResource('campaigns', CampaignController::class);
     Route::patch('campaigns/{campaign}/set-active-status', [CampaignController::class, 'setActiveStatus'])->name('campaigns.set-active-status');
+
+    Route::prefix('campaigns')
+        ->controller(CampaignClusterController::class)
+        ->group(function () {
+            Route::post('{campaign}/clusters', 'store')->name('campaigns.clusters.store');
+        });
 });

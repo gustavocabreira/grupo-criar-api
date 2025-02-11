@@ -6,6 +6,7 @@ use App\Observers\CampaignObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[ObservedBy(CampaignObserver::class)]
 class Campaign extends Model
@@ -23,4 +24,12 @@ class Campaign extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    public function clusters(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Cluster::class, 'cluster_campaign_pivot')
+            ->withPivot('is_active')
+            ->withTimestamps();
+    }
 }
