@@ -12,4 +12,10 @@ class DiscountObserver
         $discount->value = $discount->value ?? 0;
         $discount->percentage = $discount->percentage ?? 0;
     }
+
+    public function updating(Discount $discount): void
+    {
+        $discount->value = $discount->value ?? 0;
+        $discount->percentage = $discount->percentage ?? 0;
+    }
 }

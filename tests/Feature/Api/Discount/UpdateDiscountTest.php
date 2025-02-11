@@ -92,3 +92,34 @@ test('it should be able to update a discount when providing value or percentage'
 
     $this->assertDatabaseHas($model->getTable(), ['id' => $discount->id, ...$payload]);
 })->with('providing_value_or_percentage');
+
+dataset('providing_null_value_or_percentage', [
+    'value' => [
+        ['name' => 'value', 'description' => null, 'value' => '100', 'percentage' => null],
+    ],
+    'percentage' => [
+        ['name' => 'percentage', 'description' => null, 'value' => null, 'percentage' => '100'],
+    ],
+]);
+
+test('it should return 0.00 when providing null for value or percentage', function ($payload) {
+    $model = new Discount();
+
+    $discount = Discount::factory()->create();
+
+    $response = $this->putJson(route('api.discounts.update', ['discount' => $discount->id]), $payload);
+
+    $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+    $index = $payload['name'];
+
+    $this->assertDatabaseHas($model->getTable(), [
+        'id' => $discount->id,
+        $index => $payload[$index],
+        'description' => $payload['description'],
+        'name' => $payload['name'],
+        'is_active' => true,
+    ]);
+
+    $this->assertDatabaseCount($model->getTable(), 1);
+})->with('providing_null_value_or_percentage');
