@@ -33,4 +33,11 @@ class DiscountController extends Controller
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function destroy(Discount $discount): JsonResponse
+    {
+        $discount->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
