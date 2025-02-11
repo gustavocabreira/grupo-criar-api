@@ -37,3 +37,38 @@ test('it should sync clusters with a campaign', function () {
         ]);
     }
 });
+
+dataset('invalid_payload', [
+    'empty clusters' => [
+        ['clusters' => []], ['clusters' => 'The clusters field is required.'],
+    ],
+    'cluster that does not exist' => [
+        ['clusters' => [-1]], ['clusters.0' => 'The selected clusters.0 is invalid.'],
+    ],
+]);
+
+test('it should return unprocessable entity when trying to sync clusters with a campaign with an invalid payload', function ($payload, $expectedErrors) {
+    $key = array_keys($expectedErrors);
+
+    $campaign = Campaign::factory()->create();
+
+    $response = $this->postJson(route('api.campaigns.clusters.destroy', ['campaign' => $campaign->id]), $payload);
+
+    $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+    $response->assertJsonValidationErrors($key);
+
+    $response->assertJsonFragment([
+        'errors' => [
+            $key[0] => [$expectedErrors[$key[0]]],
+        ],
+    ]);
+
+    if (! empty($payload['clusters'])) {
+        $this->assertDatabaseMissing('cluster_campaign_pivot', [
+            'cluster_id' => $payload['clusters'][0],
+        ]);
+    }
+
+    $this->assertDatabaseCount('cluster_campaign_pivot', 0);
+})->with('invalid_payload');
