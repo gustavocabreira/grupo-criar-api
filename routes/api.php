@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CampaignController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\ClusterCityController;
 use App\Http\Controllers\Api\ClusterController;
@@ -24,8 +25,10 @@ Route::name('api.')->group(function () {
     Route::prefix('clusters')
         ->controller(ClusterCityController::class)
         ->group(function () {
-            Route::post('{cluster}/cities', [ClusterCityController::class, 'store'])->name('clusters.cities.store');
-            Route::put('{cluster}/cities', [ClusterCityController::class, 'update'])->name('clusters.cities.update');
-            Route::delete('{cluster}/cities', [ClusterCityController::class, 'destroy'])->name('clusters.cities.destroy');
+            Route::post('{cluster}/cities', 'store')->name('clusters.cities.store');
+            Route::put('{cluster}/cities', 'update')->name('clusters.cities.update');
+            Route::delete('{cluster}/cities', 'destroy')->name('clusters.cities.destroy');
         });
+
+    Route::apiResource('campaigns', CampaignController::class);
 });
