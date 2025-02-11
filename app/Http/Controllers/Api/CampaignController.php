@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaign\CreateCampaignRequest;
 use App\Models\Campaign;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CampaignController extends Controller
@@ -22,5 +23,17 @@ class CampaignController extends Controller
     public function show(Campaign $campaign): JsonResponse
     {
         return response()->json($campaign, Response::HTTP_OK);
+    }
+
+    public function update(Campaign $campaign, Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+        ]);
+
+        $campaign->update($validated);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
