@@ -36,4 +36,10 @@ class CampaignController extends Controller
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function destroy(Campaign $campaign): JsonResponse
+    {
+        $campaign->delete();
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
