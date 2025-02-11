@@ -89,3 +89,21 @@ test('it should set the previous cluster x campaign is_active as false when assi
         'is_active' => true,
     ]);
 });
+
+test('it should create only one record in cluster_campaign_pivot when passing duplicate cluster IDs', function () {
+    $campaign = Campaign::factory()->create();
+    $cluster = Cluster::factory()->create();
+
+    $payload = ['clusters' => [$cluster->id, $cluster->id]];
+
+    $response = $this->postJson(route('api.campaigns.clusters.store', ['campaign' => $campaign->id]), $payload);
+    $response->assertStatus(Response::HTTP_CREATED);
+
+    $this->assertDatabaseCount('cluster_campaign_pivot', 1);
+
+    $this->assertDatabaseHas('cluster_campaign_pivot', [
+        'cluster_id' => $cluster->id,
+        'campaign_id' => $campaign->id,
+        'is_active' => true,
+    ]);
+});
