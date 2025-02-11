@@ -32,4 +32,16 @@ class CampaignClusterController extends Controller
 
         return response()->json($campaign, Response::HTTP_CREATED);
     }
+
+    public function destroy(Campaign $campaign, Request $request): JsonResponse
+    {
+        $request->validate([
+            'clusters' => ['required', 'array'],
+            'clusters.*' => ['integer', 'exists:clusters,id'],
+        ]);
+
+        $campaign->clusters()->whereIn('cluster_id', array_unique($request->input('clusters')))->update(['cluster_campaign_pivot.is_active' => false]);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
