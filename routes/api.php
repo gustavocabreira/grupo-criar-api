@@ -25,6 +25,7 @@ Route::name('api.')->group(function () {
         ->controller(ClusterCityController::class)
         ->group(function () {
             Route::post('{cluster}/cities', [ClusterCityController::class, 'store'])->name('clusters.cities.store');
+            Route::put('{cluster}/cities', [ClusterCityController::class, 'update'])->name('clusters.cities.update');
             Route::delete('{cluster}/cities', [ClusterCityController::class, 'destroy'])->name('clusters.cities.destroy');
         });
 });

@@ -7,6 +7,7 @@ use App\Http\Requests\Cluster\City\AssignCityRequest;
 use App\Http\Requests\Cluster\City\RemoveCityRequest;
 use App\Models\Cluster;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -27,6 +28,24 @@ class ClusterCityController extends Controller
         });
 
         return response()->json($cluster, Response::HTTP_CREATED);
+    }
+
+    public function update(Cluster $cluster, Request $request): JsonResponse
+    {
+        $request->validate([
+            'cities' => ['required', 'array'],
+            'cities.*' => ['exists:cities,id'],
+        ]);
+
+        $cities = array_unique($request->input('cities'));
+
+        DB::transaction(function () use ($cluster, $cities) {
+            $cluster->cities()->whereNotIn('city_id', $cities)->update(['cluster_city_pivot.is_active' => false]);
+            $cluster->cities()->syncWithoutDetaching($cities);
+            $cluster->cities()->whereIn('city_id', $cities)->update(['cluster_city_pivot.is_active' => true]);
+        });
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
     public function destroy(Cluster $cluster, RemoveCityRequest $request): JsonResponse
