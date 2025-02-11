@@ -23,4 +23,9 @@ class DiscountController extends Controller
 
         return response()->json($discount, Response::HTTP_CREATED);
     }
+
+    public function show(Discount $discount): JsonResponse
+    {
+        return response()->json($discount, Response::HTTP_OK);
+    }
 }
