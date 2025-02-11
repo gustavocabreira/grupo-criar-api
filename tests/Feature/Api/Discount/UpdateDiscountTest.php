@@ -71,3 +71,31 @@ test('it should return unprocessable entity when trying to update a discount wit
 
     $this->assertDatabaseCount($model->getTable(), 1);
 })->with('invalid_payload');
+
+dataset('providing_value_or_percentage', [
+    'value' => [
+        ['name' => 'value', 'description' => null, 'value' => '100', 'percentage' => 0],
+    ],
+    'percentage' => [
+        ['name' => 'percentage', 'description' => null, 'value' => 0, 'percentage' => '100'],
+    ],
+]);
+
+test('it should be able to update a discount when providing value or percentage', function ($payload) {
+    $model = new Discount();
+
+    $discount = Discount::factory()->create();
+
+    $response = $this->putJson(route('api.discounts.update', ['discount' => $discount->id]), $payload);
+
+    $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+    $this->assertDatabaseHas($model->getTable(), [
+        'id' => $discount->id,
+        'name' => $payload['name'],
+        'description' => $payload['description'],
+        'value' => $payload['value'],
+        'percentage' => $payload['percentage'],
+        'is_active' => true,
+    ]);
+})->with('providing_value_or_percentage');
