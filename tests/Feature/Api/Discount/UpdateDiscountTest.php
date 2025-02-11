@@ -90,12 +90,5 @@ test('it should be able to update a discount when providing value or percentage'
 
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
-    $this->assertDatabaseHas($model->getTable(), [
-        'id' => $discount->id,
-        'name' => $payload['name'],
-        'description' => $payload['description'],
-        'value' => $payload['value'],
-        'percentage' => $payload['percentage'],
-        'is_active' => true,
-    ]);
+    $this->assertDatabaseHas($model->getTable(), ['id' => $discount->id, ...$payload]);
 })->with('providing_value_or_percentage');
