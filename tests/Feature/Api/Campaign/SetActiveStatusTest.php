@@ -20,3 +20,15 @@ test('it should be able to make a campaign active', function () {
         ...$payload,
     ]);
 });
+
+test('it should return not found when trying to set status of a campaign that does not exist', function () {
+    $payload = [
+        'is_active' => false,
+    ];
+
+    $response = $this->putJson(route('api.campaigns.update', ['campaign' => -1]), $payload);
+
+    $response
+        ->assertStatus(Response::HTTP_NOT_FOUND)
+        ->assertJsonPath('message', 'No query results for model [App\Models\Campaign] -1');
+});
