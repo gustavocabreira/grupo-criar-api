@@ -20,4 +20,9 @@ class ClusterController extends Controller
 
         return response()->json($cluster, Response::HTTP_CREATED);
     }
+
+    public function show(Cluster $cluster): JsonResponse
+    {
+        return response()->json($cluster, Response::HTTP_OK);
+    }
 }
