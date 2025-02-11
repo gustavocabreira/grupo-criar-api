@@ -5,7 +5,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 test('it should be able to create a new state', function () {
-    $model = new State;
+    $model = new State();
 
     $payload = State::factory()->make()->toArray();
 
@@ -38,7 +38,7 @@ dataset('invalid_payload', [
 test('it should return unprocessable entity when trying to create a new state with an invalid payload', function ($payload, $expectedErrors) {
     $key = array_keys($expectedErrors);
 
-    $model = new State;
+    $model = new State();
 
     $response = $this->postJson(route('api.states.store'), $payload);
 
@@ -53,7 +53,7 @@ test('it should return unprocessable entity when trying to create a new state wi
 })->with('invalid_payload');
 
 test('it should return the acronym has been taken when trying to create a state with an existing acronym', function () {
-    $model = new State;
+    $model = new State();
     $state = State::factory()->create(['acronym' => 'AB']);
 
     $payload = [

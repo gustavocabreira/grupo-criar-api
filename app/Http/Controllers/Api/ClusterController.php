@@ -46,6 +46,7 @@ class ClusterController extends Controller
     public function destroy(Cluster $cluster): JsonResponse
     {
         $cluster->delete();
+
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 

@@ -4,7 +4,7 @@ use App\Models\City;
 use Illuminate\Http\Response;
 
 test('it should be able to make a city active', function () {
-    $model = new City;
+    $model = new City();
     $city = City::factory()->create(['is_active' => true]);
 
     $payload = [

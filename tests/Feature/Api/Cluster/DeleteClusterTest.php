@@ -4,7 +4,7 @@ use App\Models\Cluster;
 use Illuminate\Http\Response;
 
 test('it should be able to delete a cluster', function () {
-    $model = new Cluster;
+    $model = new Cluster();
     $cluster = Cluster::factory()->create();
 
     $response = $this->deleteJson(route('api.clusters.destroy', ['cluster' => $cluster->id]));
@@ -15,7 +15,7 @@ test('it should be able to delete a cluster', function () {
 });
 
 test('it should return not found when trying to delete a cluster that does not exists', function () {
-    $model = new Cluster;
+    $model = new Cluster();
 
     $cluster = Cluster::factory()->create();
 

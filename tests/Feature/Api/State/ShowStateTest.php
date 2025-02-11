@@ -4,7 +4,7 @@ use App\Models\State;
 use Illuminate\Http\Response;
 
 test('it should be able to find a state', function () {
-    $model = new State;
+    $model = new State();
 
     $states = State::factory()->createMany(2)->pluck('id')->toArray();
 

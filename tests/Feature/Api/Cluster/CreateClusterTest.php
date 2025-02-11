@@ -4,8 +4,8 @@ use App\Models\Cluster;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
-test('it should be able to create a new cluster', function() {
-    $model = new Cluster;
+test('it should be able to create a new cluster', function () {
+    $model = new Cluster();
 
     $payload = Cluster::factory()->make()->toArray();
 
@@ -28,7 +28,7 @@ dataset('invalid_payload', [
 
 test('it should return unprocessable entity when trying to create a new cluster with an invalid payload', function ($payload, $expectedErrors) {
     $key = array_keys($expectedErrors);
-    $model = new Cluster;
+    $model = new Cluster();
 
     $response = $this->postJson(route('api.cities.store'), $payload);
 

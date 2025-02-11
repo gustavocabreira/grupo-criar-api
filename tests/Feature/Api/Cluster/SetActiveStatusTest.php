@@ -4,7 +4,7 @@ use App\Models\Cluster;
 use Illuminate\Http\Response;
 
 test('it should be able to make a cluster active', function () {
-    $model = new Cluster;
+    $model = new Cluster();
     $cluster = Cluster::factory()->create(['is_active' => true]);
 
     $payload = [

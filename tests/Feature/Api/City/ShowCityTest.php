@@ -4,7 +4,7 @@ use App\Models\City;
 use Illuminate\Http\Response;
 
 test('it should be able to find a city', function () {
-    $model = new City;
+    $model = new City();
 
     $cities = City::factory()->createMany(2)->pluck('id')->toArray();
 

@@ -14,7 +14,7 @@ class StateFactory extends Factory
     {
         $acronym = strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter());
 
-        while(State::query()->where('acronym', $acronym)->exists()) {
+        while (State::query()->where('acronym', $acronym)->exists()) {
             $acronym = strtoupper(substr(fake()->word, 0, 1)).strtoupper(fake()->randomLetter());
         }
 

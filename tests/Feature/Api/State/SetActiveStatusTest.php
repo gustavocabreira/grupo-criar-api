@@ -4,7 +4,7 @@ use App\Models\State;
 use Illuminate\Http\Response;
 
 test('it should be able to make a state active', function () {
-    $model = new State;
+    $model = new State();
     $state = State::factory()->create(['is_active' => true]);
 
     $payload = [

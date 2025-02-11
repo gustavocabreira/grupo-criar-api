@@ -50,11 +50,11 @@ test('it should return unprocessable entity when trying to assign a new city to 
 
     $response->assertJsonFragment([
         'errors' => [
-            $key[0] => [$expectedErrors[$key[0]]]
-        ]
+            $key[0] => [$expectedErrors[$key[0]]],
+        ],
     ]);
 
-    if (!empty($payload['cities'])) {
+    if (! empty($payload['cities'])) {
         $this->assertDatabaseMissing('cluster_city_pivot', [
             'city_id' => $payload['cities'][0],
         ]);

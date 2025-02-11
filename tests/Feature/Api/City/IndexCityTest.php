@@ -6,7 +6,7 @@ use App\Models\State;
 use Illuminate\Http\Response;
 
 test('it should be able to list all cities paginated', function () {
-    $model = new City;
+    $model = new City();
 
     City::factory()->createMany(5);
 
@@ -70,4 +70,3 @@ test('it should be able to changes pages', function () {
         ->and($response->json()['per_page'])->toBe($payload['perPage'])
         ->and($response->json()['total'])->toBe(5);
 });
-

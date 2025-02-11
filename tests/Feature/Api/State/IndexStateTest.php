@@ -4,7 +4,7 @@ use App\Models\State;
 use Illuminate\Http\Response;
 
 test('it should be able to list all states paginated', function () {
-    $model = new State;
+    $model = new State();
 
     State::factory()->createMany(5);
 

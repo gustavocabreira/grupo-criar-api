@@ -37,7 +37,7 @@ dataset('invalid_payload', [
 
 test('it should return unprocessable entity when trying to update a cluster with an invalid payload', function ($payload, $expectedErrors) {
     $key = array_keys($expectedErrors);
-    $model = new Cluster;
+    $model = new Cluster();
 
     $cluster = Cluster::factory()->create();
 

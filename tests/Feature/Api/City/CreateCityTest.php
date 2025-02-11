@@ -5,7 +5,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 test('it should be able to create a new city', function () {
-    $table = new City;
+    $table = new City();
     $payload = City::factory()->make()->toArray();
 
     $response = $this->postJson(route('api.cities.store'), $payload);
@@ -34,7 +34,7 @@ dataset('invalid_payload', [
 
 test('it should return unprocessable entity when trying to create a new city with an invalid payload', function ($payload, $expectedErrors) {
     $key = array_keys($expectedErrors);
-    $model = new City;
+    $model = new City();
 
     $response = $this->postJson(route('api.cities.store'), $payload);
 

@@ -4,7 +4,7 @@ use App\Models\Cluster;
 use Illuminate\Http\Response;
 
 test('it should be able to find a cluster', function () {
-    $model = new Cluster;
+    $model = new Cluster();
 
     $states = Cluster::factory()->createMany(2)->pluck('id')->toArray();
 

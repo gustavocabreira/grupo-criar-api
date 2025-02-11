@@ -49,7 +49,7 @@ test('it should be able to remove multiple cities from a cluster', function () {
     $response = $this->deleteJson(route('api.clusters.cities.destroy', ['cluster' => $cluster->id]), $payload);
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
-    foreach($payload as $city) {
+    foreach ($payload as $city) {
         $this->assertDatabaseHas('cluster_city_pivot', [
             'cluster_id' => $cluster->id,
             'city_id' => $city,
@@ -63,4 +63,3 @@ test('it should be able to remove multiple cities from a cluster', function () {
         'is_active' => true,
     ]);
 });
-

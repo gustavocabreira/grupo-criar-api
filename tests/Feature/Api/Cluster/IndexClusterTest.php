@@ -1,11 +1,10 @@
 <?php
 
-
 use App\Models\Cluster;
 use Illuminate\Http\Response;
 
 test('it should be able to list all clusters paginated', function () {
-    $model = new Cluster;
+    $model = new Cluster();
 
     Cluster::factory()->createMany(5);
 

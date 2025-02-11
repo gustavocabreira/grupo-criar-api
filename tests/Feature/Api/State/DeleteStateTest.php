@@ -4,7 +4,7 @@ use App\Models\State;
 use Illuminate\Http\Response;
 
 test('it should be able to delete a state', function () {
-    $model = new State;
+    $model = new State();
     $state = State::factory()->create();
 
     $response = $this->deleteJson(route('api.states.destroy', ['state' => $state->id]));
@@ -15,7 +15,7 @@ test('it should be able to delete a state', function () {
 });
 
 test('it should return not found when trying to delete a state that does not exists', function () {
-    $model = new State;
+    $model = new State();
 
     $state = State::factory()->create();
 
