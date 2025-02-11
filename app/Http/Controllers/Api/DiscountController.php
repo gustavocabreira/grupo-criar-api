@@ -15,8 +15,8 @@ class DiscountController extends Controller
         $payload = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
-            'value' => ['required', 'numeric', 'min:0'],
-            'percentage' => ['required', 'numeric', 'min:0', 'max:100'],
+            'value' => ['nullable', 'numeric', 'min:0', 'required_without:percentage'],
+            'percentage' => ['nullable', 'numeric', 'min:0', 'max:100', 'required_without:value'],
         ]);
 
         $discount = Discount::query()->create($payload);
