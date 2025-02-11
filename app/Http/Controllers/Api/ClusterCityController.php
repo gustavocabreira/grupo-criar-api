@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cluster\City\AssignCityRequest;
+use App\Http\Requests\Cluster\City\RemoveCityRequest;
 use App\Models\Cluster;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -29,12 +29,9 @@ class ClusterCityController extends Controller
         return response()->json($cluster, Response::HTTP_CREATED);
     }
 
-    public function destroy(Cluster $cluster, Request $request): JsonResponse
+    public function destroy(Cluster $cluster, RemoveCityRequest $request): JsonResponse
     {
-        $request->validate([
-            'cities' => ['required', 'array'],
-            'cities.*' => ['exists:cities,id'],
-        ]);
+        $request->validated();
 
         $cluster->cities()->whereIn('city_id', array_unique($request->input('cities')))->update(['cluster_city_pivot.is_active' => false]);
 
