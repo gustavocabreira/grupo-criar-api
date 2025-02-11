@@ -24,17 +24,29 @@ RUN apk update && apk add --no-cache \
     dcron \
     nodejs \
     npm \
-    sudo
+    sudo \
+    autoconf \
+    g++ \
+    make \
+    rsync \
+    sqlite \
+    sqlite-dev \
+    linux-headers  # Install linux headers needed for building Xdebug
 
-RUN apk add --no-cache autoconf g++ make
-RUN apk add rsync
-RUN apk add --no-cache sqlite sqlite-dev
-
-# Instala extensões do PHP
+# Instala as extensões do PHP
 RUN pecl install swoole && docker-php-ext-enable swoole
 RUN pecl install redis && docker-php-ext-enable redis
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install mysqli pdo_mysql
+
+# Instala o Xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+# Habilita Xdebug para cobertura de código
+RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name 'xdebug.so' | head -n 1)" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Instala o Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
