@@ -33,3 +33,20 @@ test('it should be able to list all campaigns paginated', function () {
         ->and($response->json()['current_page'])->toBe(1)
         ->and($response->json()['total'])->toBe(5);
 });
+
+test('it should be able to set how many campaigns will be returned per page', function () {
+    Campaign::factory()->createMany(5);
+
+    $payload = [
+        'perPage' => 2,
+    ];
+
+    $response = $this->getJson(route('api.campaigns.index', $payload));
+
+    $response->assertStatus(Response::HTTP_OK);
+
+    expect($response->json()['data'])->toHaveCount($payload['perPage'])
+        ->and($response->json()['current_page'])->toBe(1)
+        ->and($response->json()['per_page'])->toBe($payload['perPage'])
+        ->and($response->json()['total'])->toBe(5);
+});
