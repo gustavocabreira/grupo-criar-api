@@ -7,10 +7,23 @@ use App\Http\Requests\Discount\CreateDiscountRequest;
 use App\Http\Requests\Discount\UpdateDiscountRequest;
 use App\Models\Discount;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class DiscountController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        $request->validate([
+            'perPage' => ['sometimes', 'integer', 'min:1'],
+            'page' => ['sometimes', 'integer', 'min:1'],
+        ]);
+
+        $discounts = Discount::query()->paginate($request->input('perPage') ?? 10);
+
+        return response()->json($discounts, Response::HTTP_OK);
+    }
+
     public function store(CreateDiscountRequest $request): JsonResponse
     {
         $payload = $request->validated();
