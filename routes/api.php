@@ -18,4 +18,5 @@ Route::name('api.')->group(function () {
     Route::patch('cities/{city}/set-active-status', [CityController::class, 'setActiveStatus'])->name('cities.set-active-status');
 
     Route::apiResource('clusters', ClusterController::class);
+    Route::patch('clusters/{cluster}/set-active-status', [ClusterController::class, 'setActiveStatus'])->name('clusters.set-active-status');
 });

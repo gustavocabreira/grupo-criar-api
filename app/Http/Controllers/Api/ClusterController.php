@@ -41,4 +41,15 @@ class ClusterController extends Controller
         $cluster->delete();
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function setActiveStatus(Cluster $cluster, Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'is_active' => ['required', 'boolean'],
+        ]);
+
+        $cluster->update($validated);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
