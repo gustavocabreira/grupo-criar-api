@@ -44,4 +44,5 @@ Route::name('api.')->group(function () {
         });
 
     Route::apiResource('discounts', DiscountController::class);
+    Route::patch('discounts/{discount}/set-active-status', [DiscountController::class, 'setActiveStatus'])->name('discounts.set-active-status');
 });
