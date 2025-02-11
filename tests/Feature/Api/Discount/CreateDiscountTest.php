@@ -77,3 +77,33 @@ test('it should be able to create a new discount when providing value or percent
     $this->assertDatabaseHas($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
 })->with('providing_value_or_percentage');
+
+
+dataset('providing_null_value_or_percentage', [
+    'value' => [
+        ['name' => 'value', 'description' => null, 'value' => '100', 'percentage' => null],
+    ],
+    'percentage' => [
+        ['name' => 'percentage', 'description' => null, 'value' => null, 'percentage' => '100'],
+    ],
+]);
+
+test('it should return 0.00 when providing null for value or percentage', function ($payload) {
+    $model = new Discount();
+
+    $response = $this->postJson(route('api.discounts.store'), $payload);
+
+    $response->assertStatus(Response::HTTP_CREATED);
+    $response->assertJsonStructure($model->getFillable());
+
+    $index = $payload['name'];
+
+    $this->assertDatabaseHas($model->getTable(), [
+        $index => $payload[$index],
+        'description' => $payload['description'],
+        'name' => $payload['name'],
+        'is_active' => true,
+    ]);
+
+    $this->assertDatabaseCount($model->getTable(), 1);
+})->with('providing_null_value_or_percentage');
