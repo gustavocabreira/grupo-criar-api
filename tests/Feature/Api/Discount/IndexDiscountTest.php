@@ -33,3 +33,20 @@ test('it should be able to index discounts', function () {
         ->and($response->json()['current_page'])->toBe(1)
         ->and($response->json()['total'])->toBe(5);
 });
+
+test('it should be able to set how many discounts will be returned per page', function () {
+    Discount::factory()->count(5)->create();
+
+    $payload = [
+        'perPage' => 2,
+    ];
+
+    $response = $this->getJson(route('api.discounts.index', $payload));
+
+    $response->assertStatus(Response::HTTP_OK);
+
+    expect($response->json()['data'])->toHaveCount($payload['perPage'])
+        ->and($response->json()['current_page'])->toBe(1)
+        ->and($response->json()['per_page'])->toBe($payload['perPage'])
+        ->and($response->json()['total'])->toBe(5);
+});
