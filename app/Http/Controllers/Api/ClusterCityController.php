@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cluster\City\AssignCityRequest;
 use App\Models\Cluster;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,13 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class ClusterCityController extends Controller
 {
-    public function store(Cluster $cluster, Request $request): JsonResponse
+    public function store(Cluster $cluster, AssignCityRequest $request): JsonResponse
     {
-        $request->validate([
-            'cities' => ['required', 'array'],
-            'cities.*' => ['exists:cities,id'],
-        ]);
-
         DB::transaction(function () use ($cluster, $request) {
             DB::table('cluster_city_pivot')
                 ->whereIn('city_id', $request->input('cities'))
