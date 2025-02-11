@@ -53,4 +53,15 @@ class CampaignController extends Controller
         $campaign->delete();
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function setActiveStatus(Campaign $campaign, Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'is_active' => ['required', 'boolean'],
+        ]);
+
+        $campaign->update($validated);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }

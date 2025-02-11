@@ -31,4 +31,5 @@ Route::name('api.')->group(function () {
         });
 
     Route::apiResource('campaigns', CampaignController::class);
+    Route::patch('campaigns/{campaign}/set-active-status', [CampaignController::class, 'setActiveStatus'])->name('campaigns.set-active-status');
 });
