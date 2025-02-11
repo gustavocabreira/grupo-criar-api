@@ -99,4 +99,3 @@ test('it should return unprocessable entity when trying to remove a city from a 
 
     $this->assertDatabaseCount('cluster_city_pivot', 0);
 })->with('invalid_payload');
-
