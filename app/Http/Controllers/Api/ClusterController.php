@@ -11,6 +11,13 @@ use Illuminate\Http\Response;
 
 class ClusterController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        $cluster = Cluster::query()->paginate($request->input('perPage') ?? 10);
+
+        return response()->json($cluster, Response::HTTP_OK);
+    }
+
     public function store(CreateClusterRequest $request): JsonResponse
     {
         $validated = $request->validated();
