@@ -11,6 +11,17 @@ use Illuminate\Http\Response;
 
 class CampaignController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        $request->validate([
+            'perPage' => ['sometimes', 'integer', 'min:1'],
+        ]);
+
+        $campaigns = Campaign::query()->paginate($request->input('perPage') ?? 10);
+
+        return response()->json($campaigns, Response::HTTP_OK);
+    }
+
     public function store(CreateCampaignRequest $request): JsonResponse
     {
         $validated = $request->validated();
