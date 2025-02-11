@@ -14,6 +14,8 @@ class ClusterCityController extends Controller
 {
     public function store(Cluster $cluster, AssignCityRequest $request): JsonResponse
     {
+        $request->validated();
+
         DB::transaction(function () use ($cluster, $request) {
             DB::table('cluster_city_pivot')
                 ->whereIn('city_id', $request->input('cities'))
