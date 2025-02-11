@@ -38,7 +38,7 @@ class ClusterCityController extends Controller
             'cities.*' => ['exists:cities,id'],
         ]);
 
-        $cluster->cities()->whereIn('city_id', $request->input('cities'))->update(['cluster_city_pivot.is_active' => false]);
+        $cluster->cities()->whereIn('city_id', array_unique($request->input('cities')))->update(['cluster_city_pivot.is_active' => false]);
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }

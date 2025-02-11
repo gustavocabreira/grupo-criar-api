@@ -34,3 +34,33 @@ test('it should be able to remove a city from a cluster', function () {
         ]);
     }
 });
+
+test('it should be able to remove multiple cities from a cluster', function () {
+    $cluster = Cluster::factory()->create();
+    $state = State::factory()->create();
+    $cities = City::factory()->count(3)->create(['state_id' => $state->id]);
+
+    $cluster->cities()->attach($cities->pluck('id')->toArray(), ['is_active' => true]);
+
+    $payload = [
+        'cities' => [$cities[0]->id, $cities[1]->id],
+    ];
+
+    $response = $this->deleteJson(route('api.clusters.cities.destroy', ['cluster' => $cluster->id]), $payload);
+    $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+    foreach($payload as $city) {
+        $this->assertDatabaseHas('cluster_city_pivot', [
+            'cluster_id' => $cluster->id,
+            'city_id' => $city,
+            'is_active' => false,
+        ]);
+    }
+
+    $this->assertDatabaseHas('cluster_city_pivot', [
+        'cluster_id' => $cluster->id,
+        'city_id' => $cities[2]->id,
+        'is_active' => true,
+    ]);
+});
+
