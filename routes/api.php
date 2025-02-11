@@ -21,5 +21,10 @@ Route::name('api.')->group(function () {
     Route::apiResource('clusters', ClusterController::class);
     Route::patch('clusters/{cluster}/set-active-status', [ClusterController::class, 'setActiveStatus'])->name('clusters.set-active-status');
 
-    Route::apiResource('clusters.cities', ClusterCityController::class);
+    Route::prefix('clusters')
+        ->controller(ClusterCityController::class)
+        ->group(function () {
+            Route::post('{cluster}/cities', [ClusterCityController::class, 'store'])->name('clusters.cities.store');
+            Route::delete('{cluster}/cities', [ClusterCityController::class, 'destroy'])->name('clusters.cities.destroy');
+        });
 });

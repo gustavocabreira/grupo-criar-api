@@ -30,4 +30,16 @@ class ClusterCityController extends Controller
 
         return response()->json($cluster, Response::HTTP_CREATED);
     }
+
+    public function destroy(Cluster $cluster, Request $request): JsonResponse
+    {
+        $request->validate([
+            'cities' => ['required', 'array'],
+            'cities.*' => ['exists:cities,id'],
+        ]);
+
+        $cluster->cities()->whereIn('city_id', $request->input('cities'))->update(['cluster_city_pivot.is_active' => false]);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
