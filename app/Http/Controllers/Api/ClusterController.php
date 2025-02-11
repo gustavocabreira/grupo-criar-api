@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cluster\CreateClusterRequest;
 use App\Models\Cluster;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ClusterController extends Controller
 {
-    public function store(Request $request): JsonResponse
+    public function store(CreateClusterRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-        ]);
+        $validated = $request->validated();
 
         $cluster = Cluster::query()->create($validated);
 
