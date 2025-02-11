@@ -18,4 +18,9 @@ class CampaignController extends Controller
 
         return response()->json($campaign, Response::HTTP_CREATED);
     }
+
+    public function show(Campaign $campaign): JsonResponse
+    {
+        return response()->json($campaign, Response::HTTP_OK);
+    }
 }
