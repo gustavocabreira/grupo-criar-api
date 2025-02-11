@@ -40,6 +40,11 @@ class ClusterCityController extends Controller
         $cities = array_unique($request->input('cities'));
 
         DB::transaction(function () use ($cluster, $cities) {
+            DB::table('cluster_city_pivot')
+                ->whereIn('city_id', $cities)
+                ->where('cluster_id', '!=', $cluster->id)
+                ->update(['is_active' => false]);
+
             $cluster->cities()->whereNotIn('city_id', $cities)->update(['cluster_city_pivot.is_active' => false]);
             $cluster->cities()->syncWithoutDetaching($cities);
             $cluster->cities()->whereIn('city_id', $cities)->update(['cluster_city_pivot.is_active' => true]);

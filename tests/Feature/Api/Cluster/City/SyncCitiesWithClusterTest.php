@@ -75,3 +75,39 @@ test('it should return unprocessable entity when trying to sync cities with a cl
 
     $this->assertDatabaseCount('cluster_city_pivot', 0);
 })->with('invalid_payload');
+
+test('it should set the older relation is_active to false when trying to sync cities that already has a cluster with a new cluster', function () {
+    $oldCluster = Cluster::factory()->create();
+    $newCluster = Cluster::factory()->create();
+
+    $state = State::factory()->create();
+    $city = City::factory()->create(['state_id' => $state->id]);
+    $anotherCity = City::factory()->create();
+
+    $oldCluster->cities()->attach([$city->id, $anotherCity->id], ['is_active' => true]);
+
+    $payload = [
+        'cities' => [$city->id],
+    ];
+
+    $response = $this->putJson(route('api.clusters.cities.update', ['cluster' => $newCluster->id]), $payload);
+    $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+    $this->assertDatabaseHas('cluster_city_pivot', [
+        'cluster_id' => $oldCluster->id,
+        'city_id' => $city->id,
+        'is_active' => false,
+    ]);
+
+    $this->assertDatabaseHas('cluster_city_pivot', [
+        'cluster_id' => $newCluster->id,
+        'city_id' => $city->id,
+        'is_active' => true,
+    ]);
+
+    $this->assertDatabaseHas('cluster_city_pivot', [
+        'cluster_id' => $oldCluster->id,
+        'city_id' => $anotherCity->id,
+        'is_active' => true,
+    ]);
+});
