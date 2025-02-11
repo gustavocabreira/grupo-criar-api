@@ -38,6 +38,7 @@ Route::name('api.')->group(function () {
         ->controller(CampaignClusterController::class)
         ->group(function () {
             Route::post('{campaign}/clusters', 'store')->name('campaigns.clusters.store');
+            Route::put('{campaign}/clusters', 'update')->name('campaigns.clusters.update');
             Route::delete('{campaign}/clusters', 'destroy')->name('campaigns.clusters.destroy');
         });
 });
