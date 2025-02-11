@@ -38,6 +38,7 @@ dataset('invalid_payload', [
 
 test('it should return unprocessable entity when trying to assign a new city to a cluster with an invalid payload', function ($payload, $expectedErrors) {
     $key = array_keys($expectedErrors);
+    $city = City::factory()->create();
 
     $cluster = Cluster::factory()->create();
 
@@ -85,6 +86,24 @@ test('it should set the previous city x cluster is_active as false when assignin
 
     $this->assertDatabaseHas('cluster_city_pivot', [
         'cluster_id' => $newCluster->id,
+        'city_id' => $city->id,
+        'is_active' => true,
+    ]);
+});
+
+test('it should create only one record in cluster_city_pivot when passing duplicate city IDs', function () {
+    $cluster = Cluster::factory()->create();
+    $city = City::factory()->create();
+
+    $payload = ['cities' => [$city->id, $city->id]];
+
+    $response = $this->postJson(route('api.clusters.cities.store', ['cluster' => $cluster->id]), $payload);
+    $response->assertStatus(Response::HTTP_CREATED);
+
+    $this->assertDatabaseCount('cluster_city_pivot', 1);
+
+    $this->assertDatabaseHas('cluster_city_pivot', [
+        'cluster_id' => $cluster->id,
         'city_id' => $city->id,
         'is_active' => true,
     ]);

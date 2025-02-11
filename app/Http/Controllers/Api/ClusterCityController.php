@@ -14,8 +14,8 @@ class ClusterCityController extends Controller
     public function store(Cluster $cluster, Request $request): JsonResponse
     {
         $request->validate([
-            'cities' => 'required|array',
-            'cities.*' => 'exists:cities,id'
+            'cities' => ['required', 'array'],
+            'cities.*' => ['exists:cities,id'],
         ]);
 
         DB::transaction(function () use ($cluster, $request) {
@@ -24,7 +24,7 @@ class ClusterCityController extends Controller
                 ->where('cluster_id', '!=', $cluster->id)
                 ->update(['is_active' => false]);
 
-            $cluster->cities()->attach($request->input('cities'), ['is_active' => true]);
+            $cluster->cities()->attach(array_unique($request->input('cities')), ['is_active' => true]);
             $cluster->load('cities');
         });
 
