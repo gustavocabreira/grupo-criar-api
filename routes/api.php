@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\ClusterController;
 use App\Http\Controllers\Api\StateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,4 +16,6 @@ Route::name('api.')->group(function () {
 
     Route::apiResource('cities', CityController::class);
     Route::patch('cities/{city}/set-active-status', [CityController::class, 'setActiveStatus'])->name('cities.set-active-status');
+
+    Route::apiResource('clusters', ClusterController::class);
 });
