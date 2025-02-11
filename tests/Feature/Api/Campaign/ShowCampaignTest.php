@@ -33,4 +33,3 @@ test('it should return not found when trying to find a campaign that does not ex
         ->assertJsonPath('message', 'No query results for model [App\Models\Campaign] -1');
 
 });
-
