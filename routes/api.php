@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CampaignController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\ClusterCityController;
 use App\Http\Controllers\Api\ClusterController;
+use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\StateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,6 @@ Route::name('api.')->group(function () {
             Route::put('{campaign}/clusters', 'update')->name('campaigns.clusters.update');
             Route::delete('{campaign}/clusters', 'destroy')->name('campaigns.clusters.destroy');
         });
+
+    Route::apiResource('discounts', DiscountController::class);
 });
