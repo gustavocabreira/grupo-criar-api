@@ -61,3 +61,31 @@ test('it should return unprocessable entity when trying to assign a new cluster 
 
     $this->assertDatabaseCount('cluster_campaign_pivot', 0);
 })->with('invalid_payload');
+
+test('it should set the previous cluster x campaign is_active as false when assigning a cluster to a new campaign', function () {
+    $oldCampaign = Campaign::factory()->create();
+    $newCampaign = Campaign::factory()->create();
+
+    $cluster = Cluster::factory()->create();
+    $oldCampaign->clusters()->attach([$cluster->id], ['is_active' => true]);
+
+    $payload = [
+        'clusters' => [$cluster->id],
+    ];
+
+    $response = $this->postJson(route('api.campaigns.clusters.store', ['campaign' => $newCampaign->id]), $payload);
+
+    $response->assertStatus(Response::HTTP_CREATED);
+
+    $this->assertDatabaseHas('cluster_campaign_pivot', [
+        'campaign_id' => $oldCampaign->id,
+        'cluster_id' => $cluster->id,
+        'is_active' => false,
+    ]);
+
+    $this->assertDatabaseHas('cluster_campaign_pivot', [
+        'campaign_id' => $newCampaign->id,
+        'cluster_id' => $cluster->id,
+        'is_active' => true,
+    ]);
+});
