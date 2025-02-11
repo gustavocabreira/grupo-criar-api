@@ -3,21 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Discount\CreateDiscountRequest;
 use App\Models\Discount;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class DiscountController extends Controller
 {
-    public function store(Request $request): JsonResponse
+    public function store(CreateDiscountRequest $request): JsonResponse
     {
-        $payload = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['sometimes', 'max:255'],
-            'value' => ['nullable', 'numeric', 'min:0', 'required_without:percentage'],
-            'percentage' => ['nullable', 'numeric', 'min:0', 'max:100', 'required_without:value'],
-        ]);
+        $payload = $request->validated();
 
         $discount = Discount::query()->create($payload);
 
