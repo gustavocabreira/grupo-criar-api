@@ -12,7 +12,7 @@ test('it should be able to assign a discount to a campaign', function () {
         'discount_id' => $discount->id,
     ];
 
-    $response = $this->postJson(route('api.campaigns.assign-discounts', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.assign-discount', ['campaign' => $campaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_CREATED);
 
@@ -40,7 +40,7 @@ test('it should return unprocessable entity when trying to assign a new discount
 
     $campaign = Campaign::factory()->create();
 
-    $response = $this->postJson(route('api.campaigns.assign-discounts', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.assign-discount', ['campaign' => $campaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 

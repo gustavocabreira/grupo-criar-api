@@ -14,7 +14,7 @@ test('it should be able to remove a discount from a campaign', function () {
         'discount_id' => $discount->id,
     ];
 
-    $response = $this->postJson(route('api.campaigns.remove-discounts', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.remove-discount', ['campaign' => $campaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
@@ -35,7 +35,7 @@ test('it should return not found when trying to remove a discount from a campaig
         'discount_id' => $discount->id,
     ];
 
-    $response = $this->postJson(route('api.campaigns.remove-discounts', ['campaign' => -1]), $payload);
+    $response = $this->postJson(route('api.campaigns.remove-discount', ['campaign' => -1]), $payload);
 
     $response
         ->assertStatus(Response::HTTP_NOT_FOUND)
@@ -63,7 +63,7 @@ test('it should return unprocessable entity when trying to remove a discount fro
 
     $campaign = Campaign::factory()->create();
 
-    $response = $this->postJson(route('api.campaigns.remove-discounts', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.remove-discount', ['campaign' => $campaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
