@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Campaign;
+use App\Models\Discount;
 use Illuminate\Http\Response;
 
 test('it should be able to find a campaign', function () {
@@ -32,4 +33,32 @@ test('it should return not found when trying to find a campaign that does not ex
         ->assertStatus(Response::HTTP_NOT_FOUND)
         ->assertJsonPath('message', 'No query results for model [App\Models\Campaign] -1');
 
+});
+
+test('it should return a campaign with its active discounts', function () {
+    $campaign = Campaign::factory()->create();
+    $discount = Discount::factory()->create();
+
+    $campaign->discounts()->attach([$discount->id], ['is_active' => true]);
+
+    $response = $this->getJson(route('api.campaigns.show', [
+        'campaign' => $campaign->id,
+        'includes' => 'activeDiscounts',
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'active_discounts' => [
+                '*' => [
+                    'id',
+                    'name',
+                    'description',
+                    'value',
+                    'percentage',
+                    'is_active',
+                    'pivot',
+                ],
+            ],
+        ]);
 });

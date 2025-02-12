@@ -40,4 +40,9 @@ class Campaign extends Model
             ->withPivot('is_active')
             ->withTimestamps();
     }
+
+    public function activeDiscounts(): BelongsToMany
+    {
+        return $this->discounts()->wherePivot('is_active', true);
+    }
 }

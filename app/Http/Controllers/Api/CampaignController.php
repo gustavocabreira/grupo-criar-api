@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaign\CreateCampaignRequest;
+use App\Http\Requests\Campaign\ShowCampaignRequest;
 use App\Models\Campaign;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,8 +32,16 @@ class CampaignController extends Controller
         return response()->json($campaign, Response::HTTP_CREATED);
     }
 
-    public function show(Campaign $campaign): JsonResponse
+    public function show(Campaign $campaign, ShowCampaignRequest $request): JsonResponse
     {
+        $request->validated();
+
+        $includes = $request->input('includes', []);
+
+        if (!empty($includes)) {
+            $campaign->load($includes);
+        }
+
         return response()->json($campaign, Response::HTTP_OK);
     }
 
