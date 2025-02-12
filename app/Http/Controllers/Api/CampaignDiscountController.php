@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaign\Discount\AssignDiscountRequest;
+use App\Http\Requests\Campaign\Discount\RemoveDiscountRequest;
 use App\Models\Campaign;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -28,5 +29,14 @@ class CampaignDiscountController extends Controller
         });
 
         return response()->json($campaign, Response::HTTP_CREATED);
+    }
+
+    public function postRemoveDiscounts(Campaign $campaign, RemoveDiscountRequest $request): JsonResponse
+    {
+        $request->validated();
+
+        $campaign->discounts()->where('discount_id', $request->input('discount_id'))->update(['campaign_discount_pivot.is_active' => false]);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

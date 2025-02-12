@@ -48,6 +48,7 @@ Route::name('api.')->group(function () {
         ->controller(CampaignDiscountController::class)
         ->group(function () {
             Route::post('{campaign}/assign-discounts', 'postAssignDiscounts')->name('campaigns.assign-discounts');
+            Route::post('{campaign}/remove-discounts', 'postRemoveDiscounts')->name('campaigns.remove-discounts');
         });
 
     Route::apiResource('discounts', DiscountController::class);
