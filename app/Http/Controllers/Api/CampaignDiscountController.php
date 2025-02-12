@@ -3,19 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Campaign\Discount\AssignDiscountRequest;
 use App\Models\Campaign;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CampaignDiscountController extends Controller
 {
-    public function postAssignDiscounts(Campaign $campaign, Request $request): JsonResponse
+    public function postAssignDiscounts(Campaign $campaign, AssignDiscountRequest $request): JsonResponse
     {
-        $request->validate([
-            'discounts' => ['required', 'array'],
-            'discounts.*' => ['exists:discounts,id'],
-        ]);
+        $request->validated();
 
         $discounts = array_unique($request->input('discounts'));
 
