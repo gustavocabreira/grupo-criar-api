@@ -7,6 +7,7 @@ use App\Http\Requests\Campaign\Discount\AssignDiscountRequest;
 use App\Models\Campaign;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class CampaignDiscountController extends Controller
 {
@@ -14,10 +15,17 @@ class CampaignDiscountController extends Controller
     {
         $request->validated();
 
-        $discounts = array_unique($request->input('discounts'));
+        $discountId = $request->input('discount_id');
 
-        $campaign->discounts()->attach($discounts, ['is_active' => true]);
-        $campaign->load('discounts');
+        DB::transaction(function () use ($campaign, $discountId) {
+            DB::table('campaign_discount_pivot')
+                ->where('campaign_id', $campaign->id)
+                ->where('discount_id', '!=', $discountId)
+                ->update(['is_active' => false]);
+
+            $campaign->discounts()->attach([$discountId], ['is_active' => true]);
+            $campaign->load('discounts');
+        });
 
         return response()->json($campaign, Response::HTTP_CREATED);
     }

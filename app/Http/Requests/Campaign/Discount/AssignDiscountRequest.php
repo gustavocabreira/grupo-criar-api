@@ -14,8 +14,7 @@ class AssignDiscountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'discounts' => ['required', 'array'],
-            'discounts.*' => ['exists:discounts,id'],
+            'discount_id' => ['required', 'exists:discounts,id'],
         ];
     }
 }

@@ -9,7 +9,7 @@ test('it should be able to assign a discount to a campaign', function () {
     $discount = Discount::factory()->create();
 
     $payload = [
-        'discounts' => [$discount->id],
+        'discount_id' => $discount->id,
     ];
 
     $response = $this->postJson(route('api.campaigns.assign-discounts', ['campaign' => $campaign->id]), $payload);
@@ -25,39 +25,18 @@ test('it should be able to assign a discount to a campaign', function () {
     $this->assertDatabaseCount('campaign_discount_pivot', 1);
 });
 
-test('it should be able to assign multiple discounts to a campaign', function () {
-    $campaign = Campaign::factory()->create();
-    $discount = Discount::factory()->count(2)->create();
-
-    $payload = [
-        'discounts' => $discount->pluck('id')->toArray(),
-    ];
-
-    $response = $this->postJson(route('api.campaigns.assign-discounts', ['campaign' => $campaign->id]), $payload);
-
-    $response->assertStatus(Response::HTTP_CREATED);
-
-    foreach ($discount as $discount) {
-        $this->assertDatabaseHas('campaign_discount_pivot', [
-            'campaign_id' => $campaign->id,
-            'discount_id' => $discount->id,
-        ]);
-    }
-
-    $this->assertDatabaseCount('campaign_discount_pivot', 2);
-});
-
 dataset('invalid_payload', [
-    'empty discounts' => [
-        ['discounts' => []], ['discounts' => 'The discounts field is required.'],
+    'empty discount_id' => [
+        ['discount_id' => ''], ['discount_id' => ['The discount id field is required.']],
     ],
     'discount that does not exist' => [
-        ['discounts' => [-1]], ['discounts.0' => 'The selected discounts.0 is invalid.'],
+        ['discount_id' => -1], ['discount_id' => ['The selected discount id is invalid.']],
     ],
 ]);
 
 test('it should return unprocessable entity when trying to assign a new discount to a campaign with an invalid payload', function ($payload, $expectedErrors) {
     $key = array_keys($expectedErrors);
+    Discount::factory()->create();
 
     $campaign = Campaign::factory()->create();
 
@@ -67,36 +46,14 @@ test('it should return unprocessable entity when trying to assign a new discount
 
     $response->assertJsonValidationErrors($key);
 
-    $response->assertJsonFragment([
-        'errors' => [
-            $key[0] => [$expectedErrors[$key[0]]],
-        ],
-    ]);
+    $response->assertJsonFragment(['errors' => $expectedErrors]);
 
-    if (! empty($payload['discounts'])) {
+    if (! empty($payload['discount_id'])) {
         $this->assertDatabaseMissing('campaign_discount_pivot', [
             'campaign_id' => $campaign->id,
-            'discount_id' => $payload['discounts'][0],
+            'discount_id' => $payload['discount_id'],
         ]);
     }
 
     $this->assertDatabaseCount('campaign_discount_pivot', 0);
 })->with('invalid_payload');
-
-test('it should create only one record in campaign_discount_pivot when passing duplicate discount IDs', function () {
-    $campaign = Campaign::factory()->create();
-    $discount = Discount::factory()->create();
-
-    $payload = ['discounts' => [$discount->id, $discount->id]];
-
-    $response = $this->postJson(route('api.campaigns.assign-discounts', ['campaign' => $campaign->id]), $payload);
-    $response->assertStatus(Response::HTTP_CREATED);
-
-    $this->assertDatabaseCount('campaign_discount_pivot', 1);
-
-    $this->assertDatabaseHas('campaign_discount_pivot', [
-        'campaign_id' => $campaign->id,
-        'discount_id' => $discount->id,
-        'is_active' => true,
-    ]);
-});
