@@ -32,4 +32,12 @@ class Campaign extends Model
             ->withPivot('is_active')
             ->withTimestamps();
     }
+
+    public function discounts(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Discount::class, 'campaign_discount_pivot')
+            ->withPivot('is_active')
+            ->withTimestamps();
+    }
 }

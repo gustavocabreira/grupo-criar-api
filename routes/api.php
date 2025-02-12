@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CampaignClusterController;
 use App\Http\Controllers\Api\CampaignController;
+use App\Http\Controllers\Api\CampaignDiscountController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\ClusterCityController;
 use App\Http\Controllers\Api\ClusterController;
@@ -41,6 +42,12 @@ Route::name('api.')->group(function () {
             Route::post('{campaign}/assign-clusters', 'postAssignClusters')->name('campaigns.assign-clusters');
             Route::post('{campaign}/sync-clusters', 'postSyncClusters')->name('campaigns.sync-clusters');
             Route::post('{campaign}/remove-clusters', 'postRemoveClusters')->name('campaigns.remove-clusters');
+        });
+
+    Route::prefix('campaigns')
+        ->controller(CampaignDiscountController::class)
+        ->group(function () {
+            Route::post('{campaign}/assign-discounts', 'postAssignDiscounts')->name('campaigns.assign-discounts');
         });
 
     Route::apiResource('discounts', DiscountController::class);
