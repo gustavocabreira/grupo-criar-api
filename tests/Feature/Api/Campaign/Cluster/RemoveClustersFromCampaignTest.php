@@ -14,7 +14,7 @@ test('it should be able to remove a cluster from a campaign', function () {
         'clusters' => [$clusters->first()->id],
     ];
 
-    $response = $this->deleteJson(route('api.campaigns.clusters.destroy', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.remove-clusters', ['campaign' => $campaign->id]), $payload);
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
     $this->assertDatabaseCount('cluster_campaign_pivot', 3);
@@ -43,7 +43,7 @@ test('it should be able to remove multiple clusters from a campaign', function (
         'clusters' => [$clusters->first()->id, $clusters->last()->id],
     ];
 
-    $response = $this->deleteJson(route('api.campaigns.clusters.destroy', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.remove-clusters', ['campaign' => $campaign->id]), $payload);
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
     foreach ($payload as $cluster) {
@@ -75,7 +75,7 @@ test('it should return unprocessable entity when trying to remove a cluster from
 
     $campaign = Campaign::factory()->create();
 
-    $response = $this->postJson(route('api.campaigns.clusters.destroy', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.remove-clusters', ['campaign' => $campaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 

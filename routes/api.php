@@ -38,9 +38,9 @@ Route::name('api.')->group(function () {
     Route::prefix('campaigns')
         ->controller(CampaignClusterController::class)
         ->group(function () {
-            Route::post('{campaign}/clusters', 'store')->name('campaigns.clusters.store');
-            Route::put('{campaign}/clusters', 'update')->name('campaigns.clusters.update');
-            Route::delete('{campaign}/clusters', 'destroy')->name('campaigns.clusters.destroy');
+            Route::post('{campaign}/assign-clusters', 'postAssignClusters')->name('campaigns.assign-clusters');
+            Route::post('{campaign}/sync-clusters', 'postSyncClusters')->name('campaigns.sync-clusters');
+            Route::post('{campaign}/remove-clusters', 'postRemoveClusters')->name('campaigns.remove-clusters');
         });
 
     Route::apiResource('discounts', DiscountController::class);

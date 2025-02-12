@@ -16,7 +16,7 @@ test('it should sync clusters with a campaign', function () {
         'clusters' => $newClusters->pluck('id')->toArray(),
     ];
 
-    $response = $this->putJson(route('api.campaigns.clusters.update', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.sync-clusters', ['campaign' => $campaign->id]), $payload);
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
     $this->assertDatabaseCount('cluster_campaign_pivot', 7);
@@ -52,7 +52,7 @@ test('it should return unprocessable entity when trying to sync clusters with a 
 
     $campaign = Campaign::factory()->create();
 
-    $response = $this->postJson(route('api.campaigns.clusters.destroy', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.sync-clusters', ['campaign' => $campaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 

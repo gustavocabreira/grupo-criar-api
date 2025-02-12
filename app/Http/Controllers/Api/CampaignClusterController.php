@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class CampaignClusterController extends Controller
 {
-    public function store(Campaign $campaign, Request $request): JsonResponse
+    public function postAssignClusters(Campaign $campaign, Request $request): JsonResponse
     {
         $request->validate([
             'clusters' => ['required', 'array'],
@@ -33,7 +33,7 @@ class CampaignClusterController extends Controller
         return response()->json($campaign, Response::HTTP_CREATED);
     }
 
-    public function update(Campaign $campaign, Request $request): JsonResponse
+    public function postSyncClusters(Campaign $campaign, Request $request): JsonResponse
     {
         $request->validate([
             'clusters' => ['required', 'array'],
@@ -56,7 +56,7 @@ class CampaignClusterController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function destroy(Campaign $campaign, Request $request): JsonResponse
+    public function postRemoveClusters(Campaign $campaign, Request $request): JsonResponse
     {
         $request->validate([
             'clusters' => ['required', 'array'],

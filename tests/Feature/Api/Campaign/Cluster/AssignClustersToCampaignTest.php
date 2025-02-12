@@ -12,7 +12,7 @@ test('it should be able to assign clusters to a campaign', function () {
         'clusters' => $clusters->pluck('id')->toArray(),
     ];
 
-    $response = $this->postJson(route('api.campaigns.clusters.store', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.assign-clusters', ['campaign' => $campaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_CREATED);
 
@@ -41,7 +41,7 @@ test('it should return unprocessable entity when trying to assign a new cluster 
 
     $campaign = Campaign::factory()->create();
 
-    $response = $this->postJson(route('api.campaigns.clusters.store', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.assign-clusters', ['campaign' => $campaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
@@ -73,7 +73,7 @@ test('it should set the previous cluster x campaign is_active as false when assi
         'clusters' => [$cluster->id],
     ];
 
-    $response = $this->postJson(route('api.campaigns.clusters.store', ['campaign' => $newCampaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.assign-clusters', ['campaign' => $newCampaign->id]), $payload);
 
     $response->assertStatus(Response::HTTP_CREATED);
 
@@ -96,7 +96,7 @@ test('it should create only one record in cluster_campaign_pivot when passing du
 
     $payload = ['clusters' => [$cluster->id, $cluster->id]];
 
-    $response = $this->postJson(route('api.campaigns.clusters.store', ['campaign' => $campaign->id]), $payload);
+    $response = $this->postJson(route('api.campaigns.assign-clusters', ['campaign' => $campaign->id]), $payload);
     $response->assertStatus(Response::HTTP_CREATED);
 
     $this->assertDatabaseCount('cluster_campaign_pivot', 1);
