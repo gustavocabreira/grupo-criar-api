@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class ClusterCityController extends Controller
 {
-    public function store(Cluster $cluster, AssignCityRequest $request): JsonResponse
+    public function postAssignCities(Cluster $cluster, AssignCityRequest $request): JsonResponse
     {
         $request->validated();
 
@@ -30,7 +30,7 @@ class ClusterCityController extends Controller
         return response()->json($cluster, Response::HTTP_CREATED);
     }
 
-    public function update(Cluster $cluster, Request $request): JsonResponse
+    public function postSyncCities(Cluster $cluster, Request $request): JsonResponse
     {
         $request->validate([
             'cities' => ['required', 'array'],
@@ -53,7 +53,7 @@ class ClusterCityController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function destroy(Cluster $cluster, RemoveCityRequest $request): JsonResponse
+    public function postRemoveCities(Cluster $cluster, RemoveCityRequest $request): JsonResponse
     {
         $request->validated();
 

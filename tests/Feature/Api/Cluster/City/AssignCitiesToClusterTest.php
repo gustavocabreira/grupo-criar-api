@@ -13,7 +13,7 @@ test('it should be able to assign cities to a cluster', function () {
         'cities' => $cities,
     ];
 
-    $response = $this->postJson(route('api.clusters.cities.store', ['cluster' => $cluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.assign-cities', ['cluster' => $cluster->id]), $payload);
 
     $response->assertStatus(Response::HTTP_CREATED);
 
@@ -42,7 +42,7 @@ test('it should return unprocessable entity when trying to assign a new city to 
 
     $cluster = Cluster::factory()->create();
 
-    $response = $this->postJson(route('api.clusters.cities.store', ['cluster' => $cluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.assign-cities', ['cluster' => $cluster->id]), $payload);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
@@ -74,7 +74,7 @@ test('it should set the previous city x cluster is_active as false when assignin
         'cities' => [$city->id],
     ];
 
-    $response = $this->postJson(route('api.clusters.cities.store', ['cluster' => $newCluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.assign-cities', ['cluster' => $newCluster->id]), $payload);
 
     $response->assertStatus(Response::HTTP_CREATED);
 
@@ -97,7 +97,7 @@ test('it should create only one record in cluster_city_pivot when passing duplic
 
     $payload = ['cities' => [$city->id, $city->id]];
 
-    $response = $this->postJson(route('api.clusters.cities.store', ['cluster' => $cluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.assign-cities', ['cluster' => $cluster->id]), $payload);
     $response->assertStatus(Response::HTTP_CREATED);
 
     $this->assertDatabaseCount('cluster_city_pivot', 1);

@@ -18,7 +18,7 @@ test('it should sync cities with a cluster', function () {
         'cities' => $newCities->pluck('id')->toArray(),
     ];
 
-    $response = $this->putJson(route('api.clusters.cities.update', ['cluster' => $cluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.sync-cities', ['cluster' => $cluster->id]), $payload);
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
     $this->assertDatabaseCount('cluster_city_pivot', 7);
@@ -55,7 +55,7 @@ test('it should return unprocessable entity when trying to sync cities with a cl
 
     $cluster = Cluster::factory()->create();
 
-    $response = $this->postJson(route('api.clusters.cities.destroy', ['cluster' => $cluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.sync-cities', ['cluster' => $cluster->id]), $payload);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
@@ -90,7 +90,7 @@ test('it should set the older relation is_active to false when trying to sync ci
         'cities' => [$city->id],
     ];
 
-    $response = $this->putJson(route('api.clusters.cities.update', ['cluster' => $newCluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.sync-cities', ['cluster' => $newCluster->id]), $payload);
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
     $this->assertDatabaseHas('cluster_city_pivot', [

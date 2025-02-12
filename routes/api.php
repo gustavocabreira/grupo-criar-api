@@ -27,9 +27,9 @@ Route::name('api.')->group(function () {
     Route::prefix('clusters')
         ->controller(ClusterCityController::class)
         ->group(function () {
-            Route::post('{cluster}/cities', 'store')->name('clusters.cities.store');
-            Route::put('{cluster}/cities', 'update')->name('clusters.cities.update');
-            Route::delete('{cluster}/cities', 'destroy')->name('clusters.cities.destroy');
+            Route::post('{cluster}/assign-cities', 'postAssignCities')->name('clusters.assign-cities');
+            Route::post('{cluster}/sync-cities', 'postSyncCities')->name('clusters.sync-cities');
+            Route::post('{cluster}/remove-cities', 'postRemoveCities')->name('clusters.remove-cities');
         });
 
     Route::apiResource('campaigns', CampaignController::class);

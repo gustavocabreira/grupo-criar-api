@@ -16,7 +16,7 @@ test('it should be able to remove a city from a cluster', function () {
         'cities' => [$city[0]->id],
     ];
 
-    $response = $this->deleteJson(route('api.clusters.cities.destroy', ['cluster' => $cluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.remove-cities', ['cluster' => $cluster->id]), $payload);
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
     $this->assertDatabaseCount('cluster_city_pivot', 3);
@@ -46,7 +46,7 @@ test('it should be able to remove multiple cities from a cluster', function () {
         'cities' => [$cities[0]->id, $cities[1]->id],
     ];
 
-    $response = $this->deleteJson(route('api.clusters.cities.destroy', ['cluster' => $cluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.remove-cities', ['cluster' => $cluster->id]), $payload);
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
     foreach ($payload as $city) {
@@ -79,7 +79,7 @@ test('it should return unprocessable entity when trying to remove a city from a 
 
     $cluster = Cluster::factory()->create();
 
-    $response = $this->postJson(route('api.clusters.cities.destroy', ['cluster' => $cluster->id]), $payload);
+    $response = $this->postJson(route('api.clusters.remove-cities', ['cluster' => $cluster->id]), $payload);
 
     $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
