@@ -82,3 +82,21 @@ test('it should return unprocessable entity when trying to assign a new discount
 
     $this->assertDatabaseCount('campaign_discount_pivot', 0);
 })->with('invalid_payload');
+
+test('it should create only one record in campaign_discount_pivot when passing duplicate discount IDs', function () {
+    $campaign = Campaign::factory()->create();
+    $discount = Discount::factory()->create();
+
+    $payload = ['discounts' => [$discount->id, $discount->id]];
+
+    $response = $this->postJson(route('api.campaigns.assign-discounts', ['campaign' => $campaign->id]), $payload);
+    $response->assertStatus(Response::HTTP_CREATED);
+
+    $this->assertDatabaseCount('campaign_discount_pivot', 1);
+
+    $this->assertDatabaseHas('campaign_discount_pivot', [
+        'campaign_id' => $campaign->id,
+        'discount_id' => $discount->id,
+        'is_active' => true,
+    ]);
+});
