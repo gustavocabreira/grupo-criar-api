@@ -16,12 +16,18 @@ use Illuminate\Http\Response;
 
 class CityController extends Controller
 {
+    /**
+     * List cities.
+     */
     public function index(IndexCityRequest $request, IndexCityAction $action): JsonResponse
     {
         $cities = $action->handle($request);
         return response()->json($cities, Response::HTTP_OK);
     }
 
+    /**
+     * Create a new city.
+     */
     public function store(CreateCityRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -31,12 +37,18 @@ class CityController extends Controller
         return response()->json($city, Response::HTTP_CREATED);
     }
 
+    /**
+     * Show a city.
+     */
     public function show(City $city, ShowCityRequest $request, ShowCityAction $action): JsonResponse
     {
         $city = $action->handle($city, $request);
         return response()->json($city, Response::HTTP_OK);
     }
 
+    /**
+     * Update a city.
+     */
     public function update(City $city, UpdateCityRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -46,6 +58,9 @@ class CityController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Delete a city.
+     */
     public function destroy(City $city): JsonResponse
     {
         $city->delete();
@@ -53,6 +68,9 @@ class CityController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Set the active status of a city.
+     */
     public function setActiveStatus(City $city, SetActiveStatusCityRequest $request): JsonResponse
     {
         $validated = $request->validated();
