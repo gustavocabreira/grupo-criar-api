@@ -16,12 +16,18 @@ use Illuminate\Http\Response;
 
 class CampaignController extends Controller
 {
+    /**
+     * List campaigns.
+     */
     public function index(IndexCampaignRequest $request, IndexCampaignAction $action): JsonResponse
     {
         $campaigns = $action->handle($request);
         return response()->json($campaigns, Response::HTTP_OK);
     }
 
+    /**
+     * Create a new campaign.
+     */
     public function store(CreateCampaignRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -31,12 +37,18 @@ class CampaignController extends Controller
         return response()->json($campaign, Response::HTTP_CREATED);
     }
 
+    /**
+     * Show a campaign.
+     */
     public function show(Campaign $campaign, ShowCampaignRequest $request, ShowCampaignAction $action): JsonResponse
     {
         $campaign = $action->handle($campaign, $request);
         return response()->json($campaign, Response::HTTP_OK);
     }
 
+    /**
+     * Update a campaign.
+     */
     public function update(Campaign $campaign, UpdateCampaignRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -46,12 +58,18 @@ class CampaignController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Delete a campaign.
+     */
     public function destroy(Campaign $campaign): JsonResponse
     {
         $campaign->delete();
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Set the active status of a campaign.
+     */
     public function setActiveStatus(Campaign $campaign, SetActiveStatusCampaignRequest $request): JsonResponse
     {
         $validated = $request->validated();
