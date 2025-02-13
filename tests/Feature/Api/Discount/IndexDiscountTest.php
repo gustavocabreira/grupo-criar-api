@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Campaign;
 use App\Models\Discount;
 use Illuminate\Http\Response;
 
@@ -32,6 +33,85 @@ test('it should be able to index discounts', function () {
     expect($response->json()['data'])->toHaveCount(5)
         ->and($response->json()['current_page'])->toBe(1)
         ->and($response->json()['total'])->toBe(5);
+});
+
+test('it should be able to see all discounts campaigns', function () {
+    $model = new Discount();
+    $campaignModel = new Campaign();
+
+    $discount = Discount::factory()->create();
+    $campaign = Campaign::factory()->create();
+    $campaign->discounts()->attach([$discount->id], ['is_active' => true]);
+
+    $response = $this->getJson(route('api.discounts.index', [
+        'includes' => 'campaigns',
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'current_page',
+            'data' => [
+                '*' => [
+                    ...$model->getFillable(),
+                    'campaigns' => [
+                        '*' => $campaignModel->getFillable(),
+                    ],
+                ],
+            ],
+            'first_page_url',
+            'from',
+            'last_page',
+            'last_page_url',
+            'next_page_url',
+            'path',
+            'per_page',
+            'prev_page_url',
+            'to',
+            'total'
+        ]);
+});
+
+test('it should be able to see all active discounts campaigns', function () {
+    $model = new Discount();
+    $campaignModel = new Campaign();
+
+    $discount = Discount::factory()->create();
+    $anotherDiscount = Discount::factory()->create();
+    $campaign = Campaign::factory()->create();
+    $campaign->discounts()->attach([$discount->id], ['is_active' => true]);
+    $campaign->discounts()->attach([$anotherDiscount->id], ['is_active' => false]);
+
+    $response = $this->getJson(route('api.discounts.index', [
+        'includes' => 'activeCampaigns',
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'current_page',
+            'data' => [
+                '*' => [
+                    ...$model->getFillable(),
+                    'active_campaigns' => [
+                        '*' => $campaignModel->getFillable(),
+                    ],
+                ],
+            ],
+            'first_page_url',
+            'from',
+            'last_page',
+            'last_page_url',
+            'next_page_url',
+            'path',
+            'per_page',
+            'prev_page_url',
+            'to',
+            'total'
+        ]);
+
+    expect($response->json()['data'][0]['active_campaigns'][0]['is_active'])->toBeTrue()
+        ->and(count($response->json()['data'][0]['active_campaigns']))->toBe(1);
 });
 
 test('it should be able to set how many discounts will be returned per page', function () {

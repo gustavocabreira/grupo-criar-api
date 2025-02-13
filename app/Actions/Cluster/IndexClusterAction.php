@@ -12,6 +12,9 @@ class IndexClusterAction
     {
         $cluster = Cluster::query();
 
+        if ($request->has('includes')) {
+            $cluster->with($request->input('includes'));
+        }
 
         return $cluster->paginate($request->input('perPage') ?? 10);
 
