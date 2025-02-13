@@ -12,7 +12,6 @@ use App\Http\Requests\Cluster\ShowClusterRequest;
 use App\Http\Requests\Cluster\UpdateClusterRequest;
 use App\Models\Cluster;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ClusterController extends Controller

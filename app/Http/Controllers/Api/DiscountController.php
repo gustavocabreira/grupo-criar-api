@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Discount\IndexDiscountAction;
+use App\Actions\Discount\ShowDiscountAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Discount\CreateDiscountRequest;
+use App\Http\Requests\Discount\IndexDiscountRequest;
+use App\Http\Requests\Discount\SetActiveStatusDiscountRequest;
+use App\Http\Requests\Discount\ShowDiscountRequest;
 use App\Http\Requests\Discount\UpdateDiscountRequest;
 use App\Models\Discount;
 use Illuminate\Http\JsonResponse;
@@ -12,15 +17,9 @@ use Illuminate\Http\Response;
 
 class DiscountController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(IndexDiscountRequest $request, IndexDiscountAction $action): JsonResponse
     {
-        $request->validate([
-            'perPage' => ['sometimes', 'integer', 'min:1'],
-            'page' => ['sometimes', 'integer', 'min:1'],
-        ]);
-
-        $discounts = Discount::query()->paginate($request->input('perPage') ?? 10);
-
+        $discounts = $action->handle($request);
         return response()->json($discounts, Response::HTTP_OK);
     }
 
@@ -33,8 +32,9 @@ class DiscountController extends Controller
         return response()->json($discount, Response::HTTP_CREATED);
     }
 
-    public function show(Discount $discount): JsonResponse
+    public function show(Discount $discount, ShowDiscountRequest $request, ShowDiscountAction $action): JsonResponse
     {
+        $discount = $action->handle($discount, $request);
         return response()->json($discount, Response::HTTP_OK);
     }
 
@@ -54,11 +54,9 @@ class DiscountController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function setActiveStatus(Discount $discount, Request $request): JsonResponse
+    public function setActiveStatus(Discount $discount, SetActiveStatusDiscountRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'is_active' => ['required', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $discount->update($validated);
 

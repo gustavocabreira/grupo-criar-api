@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/var/www/app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Models/Discount.php.html#11">App\Models\Discount</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/City/ShowCityRequest.php.html#7">App\Http\Requests\City\ShowCityRequest</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Requests/Discount/ShowDiscountRequest.php.html#7">App\Http\Requests\Discount\ShowDiscountRequest</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Requests/Campaign/IndexCampaignRequest.php.html#7">App\Http\Requests\Campaign\IndexCampaignRequest</a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="Http/Requests/Cluster/IndexClusterRequest.php.html#7">App\Http\Requests\Cluster\IndexClusterRequest</a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="Http/Requests/Cluster/ShowClusterRequest.php.html#7">App\Http\Requests\Cluster\ShowClusterRequest</a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="Http/Requests/Discount/IndexDiscountRequest.php.html#7">App\Http\Requests\Discount\IndexDiscountRequest</a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="Actions/Campaign/IndexCampaignAction.php.html#9">App\Actions\Campaign\IndexCampaignAction</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Actions/City/ShowCityAction.php.html#8">App\Actions\City\ShowCityAction</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Actions/Cluster/ShowClusterAction.php.html#8">App\Actions\Cluster\ShowClusterAction</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Actions/Discount/IndexDiscountAction.php.html#9">App\Actions\Discount\IndexDiscountAction</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Actions/Discount/ShowDiscountAction.php.html#8">App\Actions\Discount\ShowDiscountAction</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Models/Cluster.php.html#11">App\Models\Cluster</a></td><td class="text-right">75%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Requests/City/ShowCityRequest.php.html#7">App\Http\Requests\City\ShowCityRequest</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Requests/Discount/ShowDiscountRequest.php.html#7">App\Http\Requests\Discount\ShowDiscountRequest</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Requests/Campaign/IndexCampaignRequest.php.html#7">App\Http\Requests\Campaign\IndexCampaignRequest</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Requests/Cluster/IndexClusterRequest.php.html#7">App\Http\Requests\Cluster\IndexClusterRequest</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Requests/Cluster/ShowClusterRequest.php.html#7">App\Http\Requests\Cluster\ShowClusterRequest</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Requests/Discount/IndexDiscountRequest.php.html#7">App\Http\Requests\Discount\IndexDiscountRequest</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Actions/Campaign/IndexCampaignAction.php.html#9">App\Actions\Campaign\IndexCampaignAction</a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Actions/City/ShowCityAction.php.html#8">App\Actions\City\ShowCityAction</a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Actions/Cluster/ShowClusterAction.php.html#8">App\Actions\Cluster\ShowClusterAction</a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Actions/Discount/IndexDiscountAction.php.html#9">App\Actions\Discount\IndexDiscountAction</a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Actions/Discount/ShowDiscountAction.php.html#8">App\Actions\Discount\ShowDiscountAction</a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Models/Cluster.php.html#34"><abbr title="App\Models\Cluster::activeCities">activeCities</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Discount.php.html#32"><abbr title="App\Models\Discount::campaigns">campaigns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Discount.php.html#39"><abbr title="App\Models\Discount::activeCampaigns">activeCampaigns</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Campaign/IndexCampaignRequest.php.html#14"><abbr title="App\Http\Requests\Campaign\IndexCampaignRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Http/Requests/City/ShowCityRequest.php.html#14"><abbr title="App\Http\Requests\City\ShowCityRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Http/Requests/Cluster/IndexClusterRequest.php.html#14"><abbr title="App\Http\Requests\Cluster\IndexClusterRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Http/Requests/Cluster/ShowClusterRequest.php.html#14"><abbr title="App\Http\Requests\Cluster\ShowClusterRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Http/Requests/Discount/IndexDiscountRequest.php.html#14"><abbr title="App\Http\Requests\Discount\IndexDiscountRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Http/Requests/Discount/ShowDiscountRequest.php.html#14"><abbr title="App\Http\Requests\Discount\ShowDiscountRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Actions/Campaign/IndexCampaignAction.php.html#11"><abbr title="App\Actions\Campaign\IndexCampaignAction::handle">handle</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Actions/City/ShowCityAction.php.html#10"><abbr title="App\Actions\City\ShowCityAction::handle">handle</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Actions/Cluster/ShowClusterAction.php.html#10"><abbr title="App\Actions\Cluster\ShowClusterAction::handle">handle</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Actions/Discount/IndexDiscountAction.php.html#11"><abbr title="App\Actions\Discount\IndexDiscountAction::handle">handle</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Actions/Discount/ShowDiscountAction.php.html#10"><abbr title="App\Actions\Discount\ShowDiscountAction::handle">handle</abbr></a></td><td class="text-right">75%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Requests/Campaign/IndexCampaignRequest.php.html#14"><abbr title="App\Http\Requests\Campaign\IndexCampaignRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Requests/City/ShowCityRequest.php.html#14"><abbr title="App\Http\Requests\City\ShowCityRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Requests/Cluster/IndexClusterRequest.php.html#14"><abbr title="App\Http\Requests\Cluster\IndexClusterRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Requests/Cluster/ShowClusterRequest.php.html#14"><abbr title="App\Http\Requests\Cluster\ShowClusterRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Requests/Discount/IndexDiscountRequest.php.html#14"><abbr title="App\Http\Requests\Discount\IndexDiscountRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Requests/Discount/ShowDiscountRequest.php.html#14"><abbr title="App\Http\Requests\Discount\ShowDiscountRequest::prepareForValidation">prepareForValidation</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Actions/Campaign/IndexCampaignAction.php.html#11"><abbr title="App\Actions\Campaign\IndexCampaignAction::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Actions/City/ShowCityAction.php.html#10"><abbr title="App\Actions\City\ShowCityAction::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Actions/Cluster/ShowClusterAction.php.html#10"><abbr title="App\Actions\Cluster\ShowClusterAction::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Actions/Discount/IndexDiscountAction.php.html#11"><abbr title="App\Actions\Discount\IndexDiscountAction::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Actions/Discount/ShowDiscountAction.php.html#10"><abbr title="App\Actions\Discount\ShowDiscountAction::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.8</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.3</a> and <a href="https://phpunit.de/">PHPUnit 11.5.3</a> at Thu Feb 13 17:47:50 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=11.0.8" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=11.0.8" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=11.0.8" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,2,10,0,0,53], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([3,0,0,6,0,0,0,0,5,0,0,129], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[75,2,"<a href=\"Actions\/Campaign\/IndexCampaignAction.php.html#9\">App\\Actions\\Campaign\\IndexCampaignAction<\/a>"],[100,2,"<a href=\"Actions\/Campaign\/ShowCampaignAction.php.html#8\">App\\Actions\\Campaign\\ShowCampaignAction<\/a>"],[100,2,"<a href=\"Actions\/City\/IndexCityAction.php.html#9\">App\\Actions\\City\\IndexCityAction<\/a>"],[75,2,"<a href=\"Actions\/City\/ShowCityAction.php.html#8\">App\\Actions\\City\\ShowCityAction<\/a>"],[100,1,"<a href=\"Actions\/Cluster\/City\/AssignCitiesAction.php.html#9\">App\\Actions\\Cluster\\City\\AssignCitiesAction<\/a>"],[100,1,"<a href=\"Actions\/Cluster\/City\/SyncCitiesAction.php.html#9\">App\\Actions\\Cluster\\City\\SyncCitiesAction<\/a>"],[100,1,"<a href=\"Actions\/Cluster\/IndexClusterAction.php.html#9\">App\\Actions\\Cluster\\IndexClusterAction<\/a>"],[75,2,"<a href=\"Actions\/Cluster\/ShowClusterAction.php.html#8\">App\\Actions\\Cluster\\ShowClusterAction<\/a>"],[75,2,"<a href=\"Actions\/Discount\/IndexDiscountAction.php.html#9\">App\\Actions\\Discount\\IndexDiscountAction<\/a>"],[75,2,"<a href=\"Actions\/Discount\/ShowDiscountAction.php.html#8\">App\\Actions\\Discount\\ShowDiscountAction<\/a>"],[100,1,"<a href=\"Actions\/State\/CreateStateAction.php.html#9\">App\\Actions\\State\\CreateStateAction<\/a>"],[100,1,"<a href=\"Console\/Commands\/PruneAttachmentCommand.php.html#9\">App\\Console\\Commands\\PruneAttachmentCommand<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/AttachmentController.php.html#11\">App\\Http\\Controllers\\Api\\AttachmentController<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Api\/CampaignClusterController.php.html#12\">App\\Http\\Controllers\\Api\\CampaignClusterController<\/a>"],[100,6,"<a href=\"Http\/Controllers\/Api\/CampaignController.php.html#17\">App\\Http\\Controllers\\Api\\CampaignController<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Api\/CampaignDiscountController.php.html#13\">App\\Http\\Controllers\\Api\\CampaignDiscountController<\/a>"],[100,6,"<a href=\"Http\/Controllers\/Api\/CityController.php.html#17\">App\\Http\\Controllers\\Api\\CityController<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Api\/ClusterCityController.php.html#14\">App\\Http\\Controllers\\Api\\ClusterCityController<\/a>"],[100,6,"<a href=\"Http\/Controllers\/Api\/ClusterController.php.html#17\">App\\Http\\Controllers\\Api\\ClusterController<\/a>"],[100,6,"<a href=\"Http\/Controllers\/Api\/DiscountController.php.html#17\">App\\Http\\Controllers\\Api\\DiscountController<\/a>"],[100,7,"<a href=\"Http\/Controllers\/Api\/ProductController.php.html#14\">App\\Http\\Controllers\\Api\\ProductController<\/a>"],[100,6,"<a href=\"Http\/Controllers\/Api\/StateController.php.html#14\">App\\Http\\Controllers\\Api\\StateController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#5\">App\\Http\\Controllers\\Controller<\/a>"],[100,2,"<a href=\"Http\/Requests\/Attachment\/CreateAttachmentRequest.php.html#7\">App\\Http\\Requests\\Attachment\\CreateAttachmentRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Campaign\/Cluster\/AssignClustersRequest.php.html#7\">App\\Http\\Requests\\Campaign\\Cluster\\AssignClustersRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Campaign\/CreateCampaignRequest.php.html#7\">App\\Http\\Requests\\Campaign\\CreateCampaignRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Campaign\/Discount\/AssignDiscountRequest.php.html#7\">App\\Http\\Requests\\Campaign\\Discount\\AssignDiscountRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Campaign\/Discount\/RemoveDiscountRequest.php.html#7\">App\\Http\\Requests\\Campaign\\Discount\\RemoveDiscountRequest<\/a>"],[70,4,"<a href=\"Http\/Requests\/Campaign\/IndexCampaignRequest.php.html#7\">App\\Http\\Requests\\Campaign\\IndexCampaignRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Campaign\/SetActiveStatusCampaignRequest.php.html#7\">App\\Http\\Requests\\Campaign\\SetActiveStatusCampaignRequest<\/a>"],[100,4,"<a href=\"Http\/Requests\/Campaign\/ShowCampaignRequest.php.html#7\">App\\Http\\Requests\\Campaign\\ShowCampaignRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Campaign\/UpdateCampaignRequest.php.html#7\">App\\Http\\Requests\\Campaign\\UpdateCampaignRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/City\/CreateCityRequest.php.html#7\">App\\Http\\Requests\\City\\CreateCityRequest<\/a>"],[100,4,"<a href=\"Http\/Requests\/City\/IndexCityRequest.php.html#7\">App\\Http\\Requests\\City\\IndexCityRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/City\/SetActiveStatusCityRequest.php.html#7\">App\\Http\\Requests\\City\\SetActiveStatusCityRequest<\/a>"],[66.66666666666666,4,"<a href=\"Http\/Requests\/City\/ShowCityRequest.php.html#7\">App\\Http\\Requests\\City\\ShowCityRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/City\/UpdateCityRequest.php.html#7\">App\\Http\\Requests\\City\\UpdateCityRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Cluster\/City\/AssignCityRequest.php.html#7\">App\\Http\\Requests\\Cluster\\City\\AssignCityRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Cluster\/City\/RemoveCityRequest.php.html#7\">App\\Http\\Requests\\Cluster\\City\\RemoveCityRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Cluster\/CreateClusterRequest.php.html#7\">App\\Http\\Requests\\Cluster\\CreateClusterRequest<\/a>"],[72.72727272727273,4,"<a href=\"Http\/Requests\/Cluster\/IndexClusterRequest.php.html#7\">App\\Http\\Requests\\Cluster\\IndexClusterRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Cluster\/SetActiveStatusClusterRequest.php.html#7\">App\\Http\\Requests\\Cluster\\SetActiveStatusClusterRequest<\/a>"],[72.72727272727273,4,"<a href=\"Http\/Requests\/Cluster\/ShowClusterRequest.php.html#7\">App\\Http\\Requests\\Cluster\\ShowClusterRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Cluster\/UpdateClusterRequest.php.html#7\">App\\Http\\Requests\\Cluster\\UpdateClusterRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Discount\/CreateDiscountRequest.php.html#7\">App\\Http\\Requests\\Discount\\CreateDiscountRequest<\/a>"],[72.72727272727273,4,"<a href=\"Http\/Requests\/Discount\/IndexDiscountRequest.php.html#7\">App\\Http\\Requests\\Discount\\IndexDiscountRequest<\/a>"],[66.66666666666666,4,"<a href=\"Http\/Requests\/Discount\/ShowDiscountRequest.php.html#7\">App\\Http\\Requests\\Discount\\ShowDiscountRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Discount\/UpdateDiscountRequest.php.html#7\">App\\Http\\Requests\\Discount\\UpdateDiscountRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/Product\/CreateProductRequest.php.html#7\">App\\Http\\Requests\\Product\\CreateProductRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/State\/CreateStateRequest.php.html#7\">App\\Http\\Requests\\State\\CreateStateRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/State\/UpdateStateRequest.php.html#7\">App\\Http\\Requests\\State\\UpdateStateRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/UpdateProductRequest.php.html#7\">App\\Http\\Requests\\UpdateProductRequest<\/a>"],[100,2,"<a href=\"Models\/Attachment.php.html#10\">App\\Models\\Attachment<\/a>"],[100,3,"<a href=\"Models\/Campaign.php.html#11\">App\\Models\\Campaign<\/a>"],[100,1,"<a href=\"Models\/City.php.html#11\">App\\Models\\City<\/a>"],[75,2,"<a href=\"Models\/Cluster.php.html#11\">App\\Models\\Cluster<\/a>"],[0,2,"<a href=\"Models\/Discount.php.html#11\">App\\Models\\Discount<\/a>"],[100,1,"<a href=\"Models\/Product.php.html#11\">App\\Models\\Product<\/a>"],[100,0,"<a href=\"Models\/State.php.html#10\">App\\Models\\State<\/a>"],[100,1,"<a href=\"Observers\/CampaignObserver.php.html#7\">App\\Observers\\CampaignObserver<\/a>"],[100,1,"<a href=\"Observers\/CityObserver.php.html#7\">App\\Observers\\CityObserver<\/a>"],[100,1,"<a href=\"Observers\/ClusterObserver.php.html#7\">App\\Observers\\ClusterObserver<\/a>"],[100,2,"<a href=\"Observers\/DiscountObserver.php.html#7\">App\\Observers\\DiscountObserver<\/a>"],[100,1,"<a href=\"Observers\/ProductObserver.php.html#7\">App\\Observers\\ProductObserver<\/a>"],[100,1,"<a href=\"Observers\/StateObserver.php.html#7\">App\\Observers\\StateObserver<\/a>"],[100,2,"<a href=\"Providers\/AppServiceProvider.php.html#7\">App\\Providers\\AppServiceProvider<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[75,2,"<a href=\"Actions\/Campaign\/IndexCampaignAction.php.html#11\">App\\Actions\\Campaign\\IndexCampaignAction::handle<\/a>"],[100,2,"<a href=\"Actions\/Campaign\/ShowCampaignAction.php.html#10\">App\\Actions\\Campaign\\ShowCampaignAction::handle<\/a>"],[100,2,"<a href=\"Actions\/City\/IndexCityAction.php.html#11\">App\\Actions\\City\\IndexCityAction::handle<\/a>"],[75,2,"<a href=\"Actions\/City\/ShowCityAction.php.html#10\">App\\Actions\\City\\ShowCityAction::handle<\/a>"],[100,1,"<a href=\"Actions\/Cluster\/City\/AssignCitiesAction.php.html#11\">App\\Actions\\Cluster\\City\\AssignCitiesAction::handle<\/a>"],[100,1,"<a href=\"Actions\/Cluster\/City\/SyncCitiesAction.php.html#11\">App\\Actions\\Cluster\\City\\SyncCitiesAction::handle<\/a>"],[100,1,"<a href=\"Actions\/Cluster\/IndexClusterAction.php.html#11\">App\\Actions\\Cluster\\IndexClusterAction::handle<\/a>"],[75,2,"<a href=\"Actions\/Cluster\/ShowClusterAction.php.html#10\">App\\Actions\\Cluster\\ShowClusterAction::handle<\/a>"],[75,2,"<a href=\"Actions\/Discount\/IndexDiscountAction.php.html#11\">App\\Actions\\Discount\\IndexDiscountAction::handle<\/a>"],[75,2,"<a href=\"Actions\/Discount\/ShowDiscountAction.php.html#10\">App\\Actions\\Discount\\ShowDiscountAction::handle<\/a>"],[100,1,"<a href=\"Actions\/State\/CreateStateAction.php.html#11\">App\\Actions\\State\\CreateStateAction::execute<\/a>"],[100,1,"<a href=\"Console\/Commands\/PruneAttachmentCommand.php.html#15\">App\\Console\\Commands\\PruneAttachmentCommand::handle<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/AttachmentController.php.html#13\">App\\Http\\Controllers\\Api\\AttachmentController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignClusterController.php.html#14\">App\\Http\\Controllers\\Api\\CampaignClusterController::postAssignClusters<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignClusterController.php.html#33\">App\\Http\\Controllers\\Api\\CampaignClusterController::postSyncClusters<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignClusterController.php.html#53\">App\\Http\\Controllers\\Api\\CampaignClusterController::postRemoveClusters<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignController.php.html#19\">App\\Http\\Controllers\\Api\\CampaignController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignController.php.html#25\">App\\Http\\Controllers\\Api\\CampaignController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignController.php.html#34\">App\\Http\\Controllers\\Api\\CampaignController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignController.php.html#40\">App\\Http\\Controllers\\Api\\CampaignController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignController.php.html#49\">App\\Http\\Controllers\\Api\\CampaignController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignController.php.html#55\">App\\Http\\Controllers\\Api\\CampaignController::setActiveStatus<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignDiscountController.php.html#15\">App\\Http\\Controllers\\Api\\CampaignDiscountController::postAssignDiscount<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CampaignDiscountController.php.html#34\">App\\Http\\Controllers\\Api\\CampaignDiscountController::postRemoveDiscount<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CityController.php.html#19\">App\\Http\\Controllers\\Api\\CityController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CityController.php.html#25\">App\\Http\\Controllers\\Api\\CityController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CityController.php.html#34\">App\\Http\\Controllers\\Api\\CityController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CityController.php.html#40\">App\\Http\\Controllers\\Api\\CityController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CityController.php.html#49\">App\\Http\\Controllers\\Api\\CityController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/CityController.php.html#56\">App\\Http\\Controllers\\Api\\CityController::setActiveStatus<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterCityController.php.html#16\">App\\Http\\Controllers\\Api\\ClusterCityController::postAssignCities<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterCityController.php.html#22\">App\\Http\\Controllers\\Api\\ClusterCityController::postSyncCities<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterCityController.php.html#28\">App\\Http\\Controllers\\Api\\ClusterCityController::postRemoveCities<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterController.php.html#19\">App\\Http\\Controllers\\Api\\ClusterController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterController.php.html#25\">App\\Http\\Controllers\\Api\\ClusterController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterController.php.html#34\">App\\Http\\Controllers\\Api\\ClusterController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterController.php.html#40\">App\\Http\\Controllers\\Api\\ClusterController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterController.php.html#49\">App\\Http\\Controllers\\Api\\ClusterController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ClusterController.php.html#56\">App\\Http\\Controllers\\Api\\ClusterController::setActiveStatus<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/DiscountController.php.html#19\">App\\Http\\Controllers\\Api\\DiscountController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/DiscountController.php.html#25\">App\\Http\\Controllers\\Api\\DiscountController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/DiscountController.php.html#34\">App\\Http\\Controllers\\Api\\DiscountController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/DiscountController.php.html#40\">App\\Http\\Controllers\\Api\\DiscountController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/DiscountController.php.html#49\">App\\Http\\Controllers\\Api\\DiscountController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/DiscountController.php.html#56\">App\\Http\\Controllers\\Api\\DiscountController::setActiveStatus<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ProductController.php.html#16\">App\\Http\\Controllers\\Api\\ProductController::index<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Api\/ProductController.php.html#29\">App\\Http\\Controllers\\Api\\ProductController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ProductController.php.html#45\">App\\Http\\Controllers\\Api\\ProductController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ProductController.php.html#50\">App\\Http\\Controllers\\Api\\ProductController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ProductController.php.html#59\">App\\Http\\Controllers\\Api\\ProductController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/ProductController.php.html#66\">App\\Http\\Controllers\\Api\\ProductController::setActiveStatus<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/StateController.php.html#16\">App\\Http\\Controllers\\Api\\StateController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/StateController.php.html#23\">App\\Http\\Controllers\\Api\\StateController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/StateController.php.html#30\">App\\Http\\Controllers\\Api\\StateController::show<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/StateController.php.html#35\">App\\Http\\Controllers\\Api\\StateController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/StateController.php.html#44\">App\\Http\\Controllers\\Api\\StateController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Api\/StateController.php.html#51\">App\\Http\\Controllers\\Api\\StateController::setActiveStatus<\/a>"],[100,1,"<a href=\"Http\/Requests\/Attachment\/CreateAttachmentRequest.php.html#9\">App\\Http\\Requests\\Attachment\\CreateAttachmentRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Attachment\/CreateAttachmentRequest.php.html#14\">App\\Http\\Requests\\Attachment\\CreateAttachmentRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/Cluster\/AssignClustersRequest.php.html#9\">App\\Http\\Requests\\Campaign\\Cluster\\AssignClustersRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/Cluster\/AssignClustersRequest.php.html#14\">App\\Http\\Requests\\Campaign\\Cluster\\AssignClustersRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/CreateCampaignRequest.php.html#9\">App\\Http\\Requests\\Campaign\\CreateCampaignRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/CreateCampaignRequest.php.html#14\">App\\Http\\Requests\\Campaign\\CreateCampaignRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/Discount\/AssignDiscountRequest.php.html#9\">App\\Http\\Requests\\Campaign\\Discount\\AssignDiscountRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/Discount\/AssignDiscountRequest.php.html#14\">App\\Http\\Requests\\Campaign\\Discount\\AssignDiscountRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/Discount\/RemoveDiscountRequest.php.html#9\">App\\Http\\Requests\\Campaign\\Discount\\RemoveDiscountRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/Discount\/RemoveDiscountRequest.php.html#14\">App\\Http\\Requests\\Campaign\\Discount\\RemoveDiscountRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/IndexCampaignRequest.php.html#9\">App\\Http\\Requests\\Campaign\\IndexCampaignRequest::authorize<\/a>"],[25,2,"<a href=\"Http\/Requests\/Campaign\/IndexCampaignRequest.php.html#14\">App\\Http\\Requests\\Campaign\\IndexCampaignRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/IndexCampaignRequest.php.html#23\">App\\Http\\Requests\\Campaign\\IndexCampaignRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/SetActiveStatusCampaignRequest.php.html#9\">App\\Http\\Requests\\Campaign\\SetActiveStatusCampaignRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/SetActiveStatusCampaignRequest.php.html#14\">App\\Http\\Requests\\Campaign\\SetActiveStatusCampaignRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/ShowCampaignRequest.php.html#9\">App\\Http\\Requests\\Campaign\\ShowCampaignRequest::authorize<\/a>"],[100,2,"<a href=\"Http\/Requests\/Campaign\/ShowCampaignRequest.php.html#14\">App\\Http\\Requests\\Campaign\\ShowCampaignRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/ShowCampaignRequest.php.html#23\">App\\Http\\Requests\\Campaign\\ShowCampaignRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/UpdateCampaignRequest.php.html#9\">App\\Http\\Requests\\Campaign\\UpdateCampaignRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Campaign\/UpdateCampaignRequest.php.html#14\">App\\Http\\Requests\\Campaign\\UpdateCampaignRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/CreateCityRequest.php.html#9\">App\\Http\\Requests\\City\\CreateCityRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/CreateCityRequest.php.html#14\">App\\Http\\Requests\\City\\CreateCityRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/IndexCityRequest.php.html#9\">App\\Http\\Requests\\City\\IndexCityRequest::authorize<\/a>"],[100,2,"<a href=\"Http\/Requests\/City\/IndexCityRequest.php.html#14\">App\\Http\\Requests\\City\\IndexCityRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/IndexCityRequest.php.html#23\">App\\Http\\Requests\\City\\IndexCityRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/SetActiveStatusCityRequest.php.html#9\">App\\Http\\Requests\\City\\SetActiveStatusCityRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/SetActiveStatusCityRequest.php.html#14\">App\\Http\\Requests\\City\\SetActiveStatusCityRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/ShowCityRequest.php.html#9\">App\\Http\\Requests\\City\\ShowCityRequest::authorize<\/a>"],[25,2,"<a href=\"Http\/Requests\/City\/ShowCityRequest.php.html#14\">App\\Http\\Requests\\City\\ShowCityRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/ShowCityRequest.php.html#23\">App\\Http\\Requests\\City\\ShowCityRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/UpdateCityRequest.php.html#9\">App\\Http\\Requests\\City\\UpdateCityRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/City\/UpdateCityRequest.php.html#14\">App\\Http\\Requests\\City\\UpdateCityRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/City\/AssignCityRequest.php.html#9\">App\\Http\\Requests\\Cluster\\City\\AssignCityRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/City\/AssignCityRequest.php.html#14\">App\\Http\\Requests\\Cluster\\City\\AssignCityRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/City\/RemoveCityRequest.php.html#9\">App\\Http\\Requests\\Cluster\\City\\RemoveCityRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/City\/RemoveCityRequest.php.html#14\">App\\Http\\Requests\\Cluster\\City\\RemoveCityRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/CreateClusterRequest.php.html#9\">App\\Http\\Requests\\Cluster\\CreateClusterRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/CreateClusterRequest.php.html#14\">App\\Http\\Requests\\Cluster\\CreateClusterRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/IndexClusterRequest.php.html#9\">App\\Http\\Requests\\Cluster\\IndexClusterRequest::authorize<\/a>"],[25,2,"<a href=\"Http\/Requests\/Cluster\/IndexClusterRequest.php.html#14\">App\\Http\\Requests\\Cluster\\IndexClusterRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/IndexClusterRequest.php.html#23\">App\\Http\\Requests\\Cluster\\IndexClusterRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/SetActiveStatusClusterRequest.php.html#9\">App\\Http\\Requests\\Cluster\\SetActiveStatusClusterRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/SetActiveStatusClusterRequest.php.html#14\">App\\Http\\Requests\\Cluster\\SetActiveStatusClusterRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/ShowClusterRequest.php.html#9\">App\\Http\\Requests\\Cluster\\ShowClusterRequest::authorize<\/a>"],[25,2,"<a href=\"Http\/Requests\/Cluster\/ShowClusterRequest.php.html#14\">App\\Http\\Requests\\Cluster\\ShowClusterRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/ShowClusterRequest.php.html#23\">App\\Http\\Requests\\Cluster\\ShowClusterRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/UpdateClusterRequest.php.html#9\">App\\Http\\Requests\\Cluster\\UpdateClusterRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Cluster\/UpdateClusterRequest.php.html#14\">App\\Http\\Requests\\Cluster\\UpdateClusterRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Discount\/CreateDiscountRequest.php.html#9\">App\\Http\\Requests\\Discount\\CreateDiscountRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Discount\/CreateDiscountRequest.php.html#14\">App\\Http\\Requests\\Discount\\CreateDiscountRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Discount\/IndexDiscountRequest.php.html#9\">App\\Http\\Requests\\Discount\\IndexDiscountRequest::authorize<\/a>"],[25,2,"<a href=\"Http\/Requests\/Discount\/IndexDiscountRequest.php.html#14\">App\\Http\\Requests\\Discount\\IndexDiscountRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/Discount\/IndexDiscountRequest.php.html#23\">App\\Http\\Requests\\Discount\\IndexDiscountRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Discount\/ShowDiscountRequest.php.html#9\">App\\Http\\Requests\\Discount\\ShowDiscountRequest::authorize<\/a>"],[25,2,"<a href=\"Http\/Requests\/Discount\/ShowDiscountRequest.php.html#14\">App\\Http\\Requests\\Discount\\ShowDiscountRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/Discount\/ShowDiscountRequest.php.html#23\">App\\Http\\Requests\\Discount\\ShowDiscountRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Discount\/UpdateDiscountRequest.php.html#9\">App\\Http\\Requests\\Discount\\UpdateDiscountRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Discount\/UpdateDiscountRequest.php.html#14\">App\\Http\\Requests\\Discount\\UpdateDiscountRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Product\/CreateProductRequest.php.html#9\">App\\Http\\Requests\\Product\\CreateProductRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Product\/CreateProductRequest.php.html#14\">App\\Http\\Requests\\Product\\CreateProductRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/State\/CreateStateRequest.php.html#9\">App\\Http\\Requests\\State\\CreateStateRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/State\/CreateStateRequest.php.html#14\">App\\Http\\Requests\\State\\CreateStateRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/State\/UpdateStateRequest.php.html#9\">App\\Http\\Requests\\State\\UpdateStateRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/State\/UpdateStateRequest.php.html#14\">App\\Http\\Requests\\State\\UpdateStateRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/UpdateProductRequest.php.html#9\">App\\Http\\Requests\\UpdateProductRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/UpdateProductRequest.php.html#14\">App\\Http\\Requests\\UpdateProductRequest::rules<\/a>"],[100,1,"<a href=\"Models\/Attachment.php.html#25\">App\\Models\\Attachment::products<\/a>"],[100,1,"<a href=\"Models\/Attachment.php.html#30\">App\\Models\\Attachment::getUrlAttribute<\/a>"],[100,1,"<a href=\"Models\/Campaign.php.html#28\">App\\Models\\Campaign::clusters<\/a>"],[100,1,"<a href=\"Models\/Campaign.php.html#36\">App\\Models\\Campaign::discounts<\/a>"],[100,1,"<a href=\"Models\/Campaign.php.html#44\">App\\Models\\Campaign::activeDiscounts<\/a>"],[100,1,"<a href=\"Models\/City.php.html#28\">App\\Models\\City::state<\/a>"],[100,1,"<a href=\"Models\/Cluster.php.html#27\">App\\Models\\Cluster::cities<\/a>"],[0,1,"<a href=\"Models\/Cluster.php.html#34\">App\\Models\\Cluster::activeCities<\/a>"],[0,1,"<a href=\"Models\/Discount.php.html#32\">App\\Models\\Discount::campaigns<\/a>"],[0,1,"<a href=\"Models\/Discount.php.html#39\">App\\Models\\Discount::activeCampaigns<\/a>"],[100,1,"<a href=\"Models\/Product.php.html#30\">App\\Models\\Product::attachments<\/a>"],[100,1,"<a href=\"Observers\/CampaignObserver.php.html#9\">App\\Observers\\CampaignObserver::creating<\/a>"],[100,1,"<a href=\"Observers\/CityObserver.php.html#9\">App\\Observers\\CityObserver::creating<\/a>"],[100,1,"<a href=\"Observers\/ClusterObserver.php.html#9\">App\\Observers\\ClusterObserver::creating<\/a>"],[100,1,"<a href=\"Observers\/DiscountObserver.php.html#9\">App\\Observers\\DiscountObserver::creating<\/a>"],[100,1,"<a href=\"Observers\/DiscountObserver.php.html#16\">App\\Observers\\DiscountObserver::updating<\/a>"],[100,1,"<a href=\"Observers\/ProductObserver.php.html#9\">App\\Observers\\ProductObserver::creating<\/a>"],[100,1,"<a href=\"Observers\/StateObserver.php.html#9\">App\\Observers\\StateObserver::creating<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#12\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#20\">App\\Providers\\AppServiceProvider::boot<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
