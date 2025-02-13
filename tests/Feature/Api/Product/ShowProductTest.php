@@ -18,3 +18,11 @@ test('it should be able to find a product', function () {
 
     expect($productId)->toBe($product->id);
 });
+
+test('it should return not found when trying to find a product that does not exist', function () {
+    $response = $this->getJson(route('api.products.show', -1));
+
+    $response
+        ->assertStatus(Response::HTTP_NOT_FOUND)
+        ->assertJsonPath('message', 'No query results for model [App\Models\Product] -1');
+});
