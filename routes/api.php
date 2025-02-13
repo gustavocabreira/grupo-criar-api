@@ -56,4 +56,5 @@ Route::name('api.')->group(function () {
     Route::patch('discounts/{discount}/set-active-status', [DiscountController::class, 'setActiveStatus'])->name('discounts.set-active-status');
 
     Route::apiResource('products', ProductController::class);
+    Route::patch('products/{product}/set-active-status', [ProductController::class, 'setActiveStatus'])->name('products.set-active-status');
 });

@@ -7,6 +7,7 @@ use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ProductController extends Controller
@@ -37,6 +38,17 @@ class ProductController extends Controller
     public function destroy(Product $product): JsonResponse
     {
         $product->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function setActiveStatus(Product $product, Request $request): JsonResponse
+    {
+        $payload = $request->validate([
+            'is_active' => ['required', 'boolean'],
+        ]);
+
+        $product->update($payload);
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
