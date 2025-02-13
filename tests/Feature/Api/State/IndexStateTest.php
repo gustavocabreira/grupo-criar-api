@@ -148,3 +148,70 @@ test('it should be able to changes pages', function () {
         ->and($response->json()['per_page'])->toBe($payload['perPage'])
         ->and($response->json()['total'])->toBe(5);
 });
+
+test('it should be able to filter state by name', function () {
+    $model = new State();
+
+    State::factory()->create(['name' => 'state']);
+    State::factory()->count(3)->create();
+
+    $response = $this->getJson(route('api.states.index', [
+        'name' => 'state',
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'current_page',
+            'data' => [
+                '*' => $model->getFillable(),
+            ],
+            'first_page_url',
+            'from',
+            'last_page',
+            'last_page_url',
+            'next_page_url',
+            'path',
+            'per_page',
+            'prev_page_url',
+            'to',
+            'total',
+        ]);
+
+    expect($response->json()['data'])->toHaveCount(1)
+        ->and($response->json()['current_page'])->toBe(1)
+        ->and($response->json()['total'])->toBe(1);
+});
+
+test('it should be able to filter state by acronym', function () {
+    $model = new State();
+
+    State::factory()->create(['name' => 'state', 'acronym' => 'ST']);
+
+    $response = $this->getJson(route('api.states.index', [
+        'acronym' => 'ST',
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'current_page',
+            'data' => [
+                '*' => $model->getFillable(),
+            ],
+            'first_page_url',
+            'from',
+            'last_page',
+            'last_page_url',
+            'next_page_url',
+            'path',
+            'per_page',
+            'prev_page_url',
+            'to',
+            'total',
+        ]);
+
+    expect($response->json()['data'])->toHaveCount(1)
+        ->and($response->json()['current_page'])->toBe(1)
+        ->and($response->json()['total'])->toBe(1);
+});

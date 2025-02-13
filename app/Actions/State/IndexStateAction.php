@@ -16,6 +16,13 @@ class IndexStateAction
             $states->with($request->input('includes'));
         }
 
+        $states
+            ->when($request->has('name'), function ($query) use ($request) {
+                $query->filterByName($request->input('name'));
+            })->when($request->has('acronym'), function ($query) use ($request) {
+                $query->filterByAcronym($request->input('acronym'));
+            });
+
         return $states->paginate($request->input('perPage') ?? 10);
     }
 }
