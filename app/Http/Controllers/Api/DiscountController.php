@@ -11,9 +11,11 @@ use App\Http\Requests\Discount\SetActiveStatusDiscountRequest;
 use App\Http\Requests\Discount\ShowDiscountRequest;
 use App\Http\Requests\Discount\UpdateDiscountRequest;
 use App\Models\Discount;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+#[Group(weight: 6)]
 class DiscountController extends Controller
 {
     /**

@@ -10,9 +10,11 @@ use App\Http\Requests\State\IndexStateRequest;
 use App\Http\Requests\State\SetActiveStatusStateRequest;
 use App\Http\Requests\State\UpdateStateRequest;
 use App\Models\State;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+#[Group(weight: 0)]
 class StateController extends Controller
 {
     /**

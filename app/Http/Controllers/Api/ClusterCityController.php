@@ -8,9 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cluster\City\AssignCityRequest;
 use App\Http\Requests\Cluster\City\RemoveCityRequest;
 use App\Models\Cluster;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+#[Group(weight: 4)]
 class ClusterCityController extends Controller
 {
     /**

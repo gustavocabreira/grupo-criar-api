@@ -11,9 +11,11 @@ use App\Http\Requests\City\SetActiveStatusCityRequest;
 use App\Http\Requests\City\ShowCityRequest;
 use App\Http\Requests\City\UpdateCityRequest;
 use App\Models\City;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+#[Group(weight: 1)]
 class CityController extends Controller
 {
     /**

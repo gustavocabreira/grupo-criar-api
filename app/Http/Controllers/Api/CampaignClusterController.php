@@ -7,9 +7,11 @@ use App\Actions\Campaign\Cluster\SyncClustersAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaign\Cluster\AssignClustersRequest;
 use App\Models\Campaign;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+#[Group(weight: 5)]
 class CampaignClusterController extends Controller
 {
     /**

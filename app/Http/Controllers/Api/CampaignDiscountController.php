@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaign\Discount\AssignDiscountRequest;
 use App\Http\Requests\Campaign\Discount\RemoveDiscountRequest;
 use App\Models\Campaign;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
+#[Group(weight: 7)]
 class CampaignDiscountController extends Controller
 {
     /**

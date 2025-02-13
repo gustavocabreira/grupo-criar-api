@@ -11,9 +11,11 @@ use App\Http\Requests\Campaign\SetActiveStatusCampaignRequest;
 use App\Http\Requests\Campaign\ShowCampaignRequest;
 use App\Http\Requests\Campaign\UpdateCampaignRequest;
 use App\Models\Campaign;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+#[Group(weight: 4)]
 class CampaignController extends Controller
 {
     /**

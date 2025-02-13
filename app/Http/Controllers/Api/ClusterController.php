@@ -11,9 +11,11 @@ use App\Http\Requests\Cluster\SetActiveStatusClusterRequest;
 use App\Http\Requests\Cluster\ShowClusterRequest;
 use App\Http\Requests\Cluster\UpdateClusterRequest;
 use App\Models\Cluster;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
+#[Group(weight: 3)]
 class ClusterController extends Controller
 {
     /**
