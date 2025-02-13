@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class CampaignDiscountController extends Controller
 {
+    /**
+     * Assign discounts to a campaign.
+     */
     public function postAssignDiscount(Campaign $campaign, AssignDiscountRequest $request): JsonResponse
     {
         $request->validated();
@@ -31,6 +34,9 @@ class CampaignDiscountController extends Controller
         return response()->json($campaign, Response::HTTP_CREATED);
     }
 
+    /**
+     * Remove discounts from a campaign.
+     */
     public function postRemoveDiscount(Campaign $campaign, RemoveDiscountRequest $request): JsonResponse
     {
         $request->validated();
