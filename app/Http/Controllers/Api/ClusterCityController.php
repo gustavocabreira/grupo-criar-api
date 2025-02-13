@@ -13,18 +13,27 @@ use Illuminate\Http\Response;
 
 class ClusterCityController extends Controller
 {
+    /**
+     * Assign cities to a cluster.
+     */
     public function postAssignCities(Cluster $cluster, AssignCityRequest $request, AssignCitiesAction $action): JsonResponse
     {
         $cluster = $action->handle($cluster, $request);
         return response()->json($cluster, Response::HTTP_CREATED);
     }
 
+    /**
+     * Sync cities to a cluster.
+     */
     public function postSyncCities(Cluster $cluster, AssignCityRequest $request, SyncCitiesAction $action): JsonResponse
     {
         $cluster = $action->handle($cluster, $request);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Remove cities from a cluster.
+     */
     public function postRemoveCities(Cluster $cluster, RemoveCityRequest $request): JsonResponse
     {
         $request->validated();
