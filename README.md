@@ -12,6 +12,7 @@ O projeto é um grupo criar, onde você deve criar uma api para gerenciar estado
 - MySQL
 - Docker e Docker Compose
 - Pest (Testes)
+- Scrumble (Documentação)
 
 ## Instalação
 
