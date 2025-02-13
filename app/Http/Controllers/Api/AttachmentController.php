@@ -3,23 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Attachment\CreateAttachmentRequest;
 use App\Models\Attachment;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class AttachmentController extends Controller
 {
-    public function store(Request $request): JsonResponse
+    public function store(CreateAttachmentRequest $request): JsonResponse
     {
-        $request->validate([
-            'image' => [
-                'required',
-                'image',
-                'mimes:jpeg,png,jpg',
-                'max:1024',
-            ],
-        ]);
+        $request->validated();
 
         $path = $request->file('image')->store('public', 'public');
 
