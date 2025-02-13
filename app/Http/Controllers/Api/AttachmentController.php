@@ -10,6 +10,9 @@ use Illuminate\Http\Response;
 
 class AttachmentController extends Controller
 {
+    /**
+     * Create a new attachment.
+     */
     public function store(CreateAttachmentRequest $request): JsonResponse
     {
         $request->validated();
