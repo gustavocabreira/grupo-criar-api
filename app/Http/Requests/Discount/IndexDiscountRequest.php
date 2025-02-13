@@ -27,6 +27,7 @@ class IndexDiscountRequest extends FormRequest
             'includes.*' => ['string', 'in:campaigns,activeCampaigns'],
             'perPage' => ['sometimes', 'integer', 'min:1'],
             'page' => ['sometimes', 'integer', 'min:1'],
+            'name' => ['sometimes', 'string'],
         ];
     }
 }

@@ -16,6 +16,10 @@ class IndexDiscountAction
             $discounts->with($request->input('includes'));
         }
 
+        if ($request->has('name')) {
+            $discounts->filterByName($request->input('name'));
+        }
+
         return $discounts->paginate($request->input('perPage') ?? 10);
     }
 }

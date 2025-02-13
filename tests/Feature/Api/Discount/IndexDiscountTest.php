@@ -148,3 +148,37 @@ test('it should be able to changes pages', function () {
         ->and($response->json()['per_page'])->toBe($payload['perPage'])
         ->and($response->json()['total'])->toBe(5);
 });
+
+test('it should be able to filter discounts by name', function () {
+    $model = new Discount();
+
+    Discount::factory()->create(['name' => 'discount']);
+    Discount::factory()->count(3)->create();
+
+    $response = $this->getJson(route('api.discounts.index', [
+        'name' => 'discount',
+    ]));
+
+    $response
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'current_page',
+            'data' => [
+                '*' => $model->getFillable(),
+            ],
+            'first_page_url',
+            'from',
+            'last_page',
+            'last_page_url',
+            'next_page_url',
+            'path',
+            'per_page',
+            'prev_page_url',
+            'to',
+            'total',
+        ]);
+
+    expect($response->json()['data'])->toHaveCount(1)
+        ->and($response->json()['current_page'])->toBe(1)
+        ->and($response->json()['total'])->toBe(1);
+});
