@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Campaign\Cluster\AssignClustersRequest;
 use App\Models\Campaign;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,12 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class CampaignClusterController extends Controller
 {
-    public function postAssignClusters(Campaign $campaign, Request $request): JsonResponse
+    public function postAssignClusters(Campaign $campaign, AssignClustersRequest $request): JsonResponse
     {
-        $request->validate([
-            'clusters' => ['required', 'array'],
-            'clusters.*' => ['integer', 'exists:clusters,id'],
-        ]);
+        $request->validated();
 
         $clusters = array_unique($request->input('clusters'));
 
@@ -33,12 +31,9 @@ class CampaignClusterController extends Controller
         return response()->json($campaign, Response::HTTP_CREATED);
     }
 
-    public function postSyncClusters(Campaign $campaign, Request $request): JsonResponse
+    public function postSyncClusters(Campaign $campaign, AssignClustersRequest $request): JsonResponse
     {
-        $request->validate([
-            'clusters' => ['required', 'array'],
-            'clusters.*' => ['exists:clusters,id'],
-        ]);
+        $request->validated();
 
         $clusters = array_unique($request->input('clusters'));
 
@@ -56,12 +51,9 @@ class CampaignClusterController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function postRemoveClusters(Campaign $campaign, Request $request): JsonResponse
+    public function postRemoveClusters(Campaign $campaign, AssignClustersRequest $request): JsonResponse
     {
-        $request->validate([
-            'clusters' => ['required', 'array'],
-            'clusters.*' => ['integer', 'exists:clusters,id'],
-        ]);
+        $request->validated();
 
         $campaign->clusters()->whereIn('cluster_id', array_unique($request->input('clusters')))->update(['cluster_campaign_pivot.is_active' => false]);
 
