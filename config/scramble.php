@@ -29,7 +29,7 @@ return [
         /*
          * Description rendered on the home page of the API documentation (`/docs/api`).
          */
-        'description' => '',
+        'description' => 'The API provides a set of endpoints to manage geographical data, including states, cities, clusters, campaigns, discounts and products.',
     ],
 
     /*
@@ -39,7 +39,7 @@ return [
         /*
          * Define the title of the documentation's website. App name is used when this config is `null`.
          */
-        'title' => null,
+        'title' => 'Grupo Criar API',
 
         /*
          * Define the theme of the documentation. Available options are `light` and `dark`.
@@ -49,7 +49,7 @@ return [
         /*
          * Hide the `Try It` feature. Enabled by default.
          */
-        'hide_try_it' => false,
+        'hide_try_it' => true,
 
         /*
          * URL to an image that displays as a small square logo next to the title, above the table of contents.
@@ -76,7 +76,9 @@ return [
      * ],
      * ```
      */
-    'servers' => null,
+    'servers' => [
+        'Local' => 'http://localhost',
+    ],
 
     'middleware' => [
         'web',
