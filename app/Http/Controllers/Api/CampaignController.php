@@ -7,10 +7,11 @@ use App\Actions\Campaign\ShowCampaignAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaign\CreateCampaignRequest;
 use App\Http\Requests\Campaign\IndexCampaignRequest;
+use App\Http\Requests\Campaign\SetActiveStatusCampaignRequest;
 use App\Http\Requests\Campaign\ShowCampaignRequest;
+use App\Http\Requests\Campaign\UpdateCampaignRequest;
 use App\Models\Campaign;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CampaignController extends Controller
@@ -36,12 +37,9 @@ class CampaignController extends Controller
         return response()->json($campaign, Response::HTTP_OK);
     }
 
-    public function update(Campaign $campaign, Request $request): JsonResponse
+    public function update(Campaign $campaign, UpdateCampaignRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
-        ]);
+        $validated = $request->validated();
 
         $campaign->update($validated);
 
@@ -54,11 +52,9 @@ class CampaignController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function setActiveStatus(Campaign $campaign, Request $request): JsonResponse
+    public function setActiveStatus(Campaign $campaign, SetActiveStatusCampaignRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'is_active' => ['required', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $campaign->update($validated);
 
