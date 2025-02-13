@@ -1,11 +1,14 @@
 <?php
 
+use App\Models\Attachment;
 use App\Models\Product;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 test('it should be able to create a product', function () {
     $model = new Product();
+    Attachment::factory()->count(3)->create();
+
     $payload = Product::factory()->make()->toArray();
 
     $response = $this->postJson(route('api.products.store'), $payload);
@@ -55,3 +58,24 @@ test('it should return unprocessable entity when trying to create a product with
     $this->assertDatabaseMissing($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 0);
 })->with('invalid_payload');
+
+test('it should be able to attach an image to a product', function () {
+    $attachments = Attachment::factory()->count(3)->create();
+    $product = Product::factory()->make()->toArray();
+
+    $payload = [
+        ...$product,
+        'attachments' => $attachments->pluck('id')->toArray(),
+    ];
+
+    $response = $this->postJson(route('api.products.store'), $payload);
+
+    $response->assertStatus(Response::HTTP_CREATED);
+
+    $attachments->each(function ($attachment) use ($response) {
+        $this->assertDatabaseHas('product_attachment_pivot', [
+            'product_id' => $response['id'],
+            'attachment_id' => $attachment->id,
+        ]);
+    });
+});

@@ -17,7 +17,8 @@ class AttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'filename' => $this->faker->name(),
+            'path' => $this->faker->url(),
         ];
     }
 }

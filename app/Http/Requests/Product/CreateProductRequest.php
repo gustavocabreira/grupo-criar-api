@@ -17,6 +17,8 @@ class CreateProductRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:1'],
+            'attachments' => ['nullable', 'array'],
+            'attachments.*' => ['integer', 'exists:attachments,id'],
         ];
     }
 }

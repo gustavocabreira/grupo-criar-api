@@ -9,14 +9,22 @@ use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function store(CreateProductRequest $request): JsonResponse
     {
         $payload = $request->validated();
+        $product = null;
 
-        $product = Product::query()->create($payload);
+        DB::transaction(function () use ($payload, $request, &$product) {
+            $product = Product::query()->create($payload);
+
+            if ($request->has('attachments')) {
+                $product->attachments()->sync(array_unique($request->get('attachments')));
+            }
+        });
 
         return response()->json($product, Response::HTTP_CREATED);
     }
