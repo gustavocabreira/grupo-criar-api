@@ -23,8 +23,7 @@ class StateController extends Controller
 
     public function store(CreateStateRequest $request, CreateStateAction $action): JsonResponse
     {
-        $state = $action->execute($request->validated());
-
+        $state = $action->handle($request->validated());
         return response()->json($state, Response::HTTP_CREATED);
     }
 
