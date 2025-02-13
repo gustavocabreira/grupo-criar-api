@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\City;
+use App\Models\State;
 use Illuminate\Http\Response;
 
 test('it should be able to find a city', function () {
@@ -32,4 +33,22 @@ test('it should return not found when trying to find a city that does not exist'
         ->assertStatus(Response::HTTP_NOT_FOUND)
         ->assertJsonPath('message', 'No query results for model [App\Models\City] -1');
 
+});
+
+test('it should return a city with its active state', function () {
+    $model = new City();
+    $stateModel = new State();
+
+    $city = City::factory()->create();
+
+    $response = $this->getJson(route('api.cities.show', [
+        'city' => $city->id,
+        'includes' => 'state',
+    ]));
+
+    $response->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            ...$model->getFillable(),
+            'state' => $stateModel->getFillable(),
+        ]);
 });
