@@ -12,7 +12,6 @@ use App\Http\Requests\Discount\ShowDiscountRequest;
 use App\Http\Requests\Discount\UpdateDiscountRequest;
 use App\Models\Discount;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class DiscountController extends Controller

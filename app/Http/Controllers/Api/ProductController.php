@@ -2,43 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Product\CreateProductAction;
+use App\Actions\Product\IndexProductAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\IndexProductRequest;
+use App\Http\Requests\Product\SetActiveStatusProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(IndexProductRequest $request, IndexProductAction $action): JsonResponse
     {
-        $request->validate([
-            'perPage' => ['nullable', 'integer', 'min:1', 'max:100'],
-            'page' => ['nullable', 'integer', 'min:1'],
-            'includes' => ['nullable', 'string'],
-        ]);
-
-        $products = Product::query()->with('attachments')->paginate($request->get('perPage', 10));
-
+        $products = $action->handle($request);
         return response()->json($products, Response::HTTP_OK);
     }
 
-    public function store(CreateProductRequest $request): JsonResponse
+    public function store(CreateProductRequest $request, CreateProductAction $action): JsonResponse
     {
-        $payload = $request->validated();
-        $product = null;
-
-        DB::transaction(function () use ($payload, $request, &$product) {
-            $product = Product::query()->create($payload);
-
-            if ($request->has('attachments')) {
-                $product->attachments()->sync(array_unique($request->get('attachments')));
-            }
-        });
-
+        $product = $action->handle($request);
         return response()->json($product, Response::HTTP_CREATED);
     }
 
@@ -63,11 +48,9 @@ class ProductController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function setActiveStatus(Product $product, Request $request): JsonResponse
+    public function setActiveStatus(Product $product, SetActiveStatusProductRequest $request): JsonResponse
     {
-        $payload = $request->validate([
-            'is_active' => ['required', 'boolean'],
-        ]);
+        $payload = $request->validated();
 
         $product->update($payload);
 
