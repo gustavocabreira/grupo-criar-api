@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Campaign\IndexCampaignAction;
+use App\Actions\Campaign\ShowCampaignAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaign\CreateCampaignRequest;
 use App\Http\Requests\Campaign\IndexCampaignRequest;
@@ -29,16 +30,9 @@ class CampaignController extends Controller
         return response()->json($campaign, Response::HTTP_CREATED);
     }
 
-    public function show(Campaign $campaign, ShowCampaignRequest $request): JsonResponse
+    public function show(Campaign $campaign, ShowCampaignRequest $request, ShowCampaignAction $action): JsonResponse
     {
-        $request->validated();
-
-        $includes = $request->input('includes', []);
-
-        if (!empty($includes)) {
-            $campaign->load($includes);
-        }
-
+        $campaign = $action->handle($campaign, $request);
         return response()->json($campaign, Response::HTTP_OK);
     }
 
