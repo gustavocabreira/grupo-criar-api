@@ -29,6 +29,8 @@ class ClusterController extends Controller
 
     public function show(Cluster $cluster): JsonResponse
     {
+        $cluster->load('activeCities');
+
         return response()->json($cluster, Response::HTTP_OK);
     }
 

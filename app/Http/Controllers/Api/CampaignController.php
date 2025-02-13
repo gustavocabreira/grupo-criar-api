@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Campaign\IndexCampaignAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Campaign\CreateCampaignRequest;
+use App\Http\Requests\Campaign\IndexCampaignRequest;
 use App\Http\Requests\Campaign\ShowCampaignRequest;
 use App\Models\Campaign;
 use Illuminate\Http\JsonResponse;
@@ -12,14 +14,9 @@ use Illuminate\Http\Response;
 
 class CampaignController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(IndexCampaignRequest $request, IndexCampaignAction $action): JsonResponse
     {
-        $request->validate([
-            'perPage' => ['sometimes', 'integer', 'min:1'],
-        ]);
-
-        $campaigns = Campaign::query()->paginate($request->input('perPage') ?? 10);
-
+        $campaigns = $action->handle($request);
         return response()->json($campaigns, Response::HTTP_OK);
     }
 

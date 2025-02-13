@@ -30,4 +30,9 @@ class Cluster extends Model
             ->withPivot('is_active')
             ->withTimestamps();
     }
+
+    public function activeCities(): BelongsToMany
+    {
+        return $this->cities()->wherePivot('is_active', true);
+    }
 }
