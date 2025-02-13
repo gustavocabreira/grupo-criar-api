@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        $request->validate([
+            'perPage' => ['nullable', 'integer', 'min:1', 'max:100'],
+            'page' => ['nullable', 'integer', 'min:1'],
+            'includes' => ['nullable', 'string'],
+        ]);
+
+        $products = Product::query()->with('attachments')->paginate($request->get('perPage', 10));
+
+        return response()->json($products, Response::HTTP_OK);
+    }
+
     public function store(CreateProductRequest $request): JsonResponse
     {
         $payload = $request->validated();
