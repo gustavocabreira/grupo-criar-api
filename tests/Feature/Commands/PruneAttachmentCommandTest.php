@@ -20,6 +20,9 @@ test('it should be able to prune attachments', function () {
     $this->artisan('attachment:prune');
 
     Storage::disk('public')->assertMissing($response->json()['path']);
+    $this->assertDatabaseMissing('product_attachment_pivot', [
+        'attachment_id' => $response->json()['id'],
+    ]);
 });
 
 test('it should not delete attachments that are linked to a product', function () {
