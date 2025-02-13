@@ -20,3 +20,14 @@ test('it should ble to make a product active', function () {
         ...$payload,
     ]);
 });
+
+test('it should return not found when trying to set status of a product that does not exist', function () {
+    $payload = [
+        'is_active' => false,
+    ];
+
+    $response = $this->patchJson(route('api.products.set-active-status', ['product' => -1]), $payload);
+    $response
+        ->assertStatus(Response::HTTP_NOT_FOUND)
+        ->assertJsonPath('message', 'No query results for model [App\Models\Product] -1');
+});
