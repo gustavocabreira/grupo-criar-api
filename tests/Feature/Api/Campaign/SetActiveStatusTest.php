@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Campaign;
+use App\Models\Cluster;
 use App\Models\Discount;
 use Illuminate\Http\Response;
 
@@ -57,6 +58,33 @@ test('it should set discounts relation inactive when campaign is inactive', func
     $this->assertDatabaseHas('campaign_discount_pivot', [
         'campaign_id' => $campaign->id,
         'discount_id' => $discount->id,
+        'is_active' => false,
+    ]);
+});
+
+test('it should set clusters relation inactive when campaign is inactive', function () {
+    $model = new Campaign();
+    $campaign = Campaign::factory()->create(['is_active' => true]);
+    $cluster = Cluster::factory()->create(['is_active' => true]);
+
+    $campaign->clusters()->attach([$cluster->id], ['is_active' => true]);
+
+    $payload = [
+        'is_active' => false,
+    ];
+
+    $response = $this->patchJson(route('api.campaigns.set-active-status', ['campaign' => $campaign->id]), $payload);
+
+    $response->assertStatus(Response::HTTP_NO_CONTENT);
+
+    $this->assertDatabaseHas($model->getTable(), [
+        'id' => $campaign->id,
+        ...$payload,
+    ]);
+
+    $this->assertDatabaseHas('cluster_campaign_pivot', [
+        'campaign_id' => $campaign->id,
+        'cluster_id' => $cluster->id,
         'is_active' => false,
     ]);
 });
