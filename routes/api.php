@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AttachmentController;
 use App\Http\Controllers\Api\CampaignClusterController;
 use App\Http\Controllers\Api\CampaignController;
 use App\Http\Controllers\Api\CampaignDiscountController;
@@ -57,4 +58,6 @@ Route::name('api.')->group(function () {
 
     Route::apiResource('products', ProductController::class);
     Route::patch('products/{product}/set-active-status', [ProductController::class, 'setActiveStatus'])->name('products.set-active-status');
+
+    Route::apiResource('attachments', AttachmentController::class);
 });
