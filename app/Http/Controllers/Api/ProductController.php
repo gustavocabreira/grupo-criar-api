@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -22,5 +23,14 @@ class ProductController extends Controller
     public function show(Product $product): JsonResponse
     {
         return response()->json($product, Response::HTTP_OK);
+    }
+
+    public function update(Product $product, UpdateProductRequest $request): JsonResponse
+    {
+        $payload = $request->validated();
+
+        $product->update($payload);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
