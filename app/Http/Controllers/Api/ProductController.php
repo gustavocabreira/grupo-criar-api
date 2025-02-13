@@ -18,4 +18,9 @@ class ProductController extends Controller
 
         return response()->json($product, Response::HTTP_CREATED);
     }
+
+    public function show(Product $product): JsonResponse
+    {
+        return response()->json($product, Response::HTTP_OK);
+    }
 }
