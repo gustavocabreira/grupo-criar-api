@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Cluster\City\AssignCitiesAction;
+use App\Actions\Cluster\City\SyncCitiesAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cluster\City\AssignCityRequest;
 use App\Http\Requests\Cluster\City\RemoveCityRequest;
@@ -13,43 +15,15 @@ use Illuminate\Support\Facades\DB;
 
 class ClusterCityController extends Controller
 {
-    public function postAssignCities(Cluster $cluster, AssignCityRequest $request): JsonResponse
+    public function postAssignCities(Cluster $cluster, AssignCityRequest $request, AssignCitiesAction $action): JsonResponse
     {
-        $request->validated();
-
-        DB::transaction(function () use ($cluster, $request) {
-            DB::table('cluster_city_pivot')
-                ->whereIn('city_id', $request->input('cities'))
-                ->where('cluster_id', '!=', $cluster->id)
-                ->update(['is_active' => false]);
-
-            $cluster->cities()->attach(array_unique($request->input('cities')), ['is_active' => true]);
-            $cluster->load('cities');
-        });
-
+        $cluster = $action->handle($cluster, $request);
         return response()->json($cluster, Response::HTTP_CREATED);
     }
 
-    public function postSyncCities(Cluster $cluster, Request $request): JsonResponse
+    public function postSyncCities(Cluster $cluster, AssignCityRequest $request, SyncCitiesAction $action): JsonResponse
     {
-        $request->validate([
-            'cities' => ['required', 'array'],
-            'cities.*' => ['exists:cities,id'],
-        ]);
-
-        $cities = array_unique($request->input('cities'));
-
-        DB::transaction(function () use ($cluster, $cities) {
-            DB::table('cluster_city_pivot')
-                ->whereIn('city_id', $cities)
-                ->where('cluster_id', '!=', $cluster->id)
-                ->update(['is_active' => false]);
-
-            $cluster->cities()->whereNotIn('city_id', $cities)->update(['cluster_city_pivot.is_active' => false]);
-            $cluster->cities()->syncWithoutDetaching($cities);
-            $cluster->cities()->whereIn('city_id', $cities)->update(['cluster_city_pivot.is_active' => true]);
-        });
-
+        $cluster = $action->handle($cluster, $request);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
