@@ -21,7 +21,7 @@ class AttachmentController extends Controller
             ],
         ]);
 
-        $path = $request->file('image')->store('public/temp', 'public');
+        $path = $request->file('image')->store('public', 'public');
 
         $attachment = Attachment::query()->create([
             'filename' => $request->file('image')->getClientOriginalName(),
