@@ -59,5 +59,5 @@ Route::name('api.')->group(function () {
     Route::apiResource('products', ProductController::class);
     Route::patch('products/{product}/set-active-status', [ProductController::class, 'setActiveStatus'])->name('products.set-active-status');
 
-    Route::apiResource('attachments', AttachmentController::class);
+    Route::apiResource('attachments', AttachmentController::class)->only('store');
 });
