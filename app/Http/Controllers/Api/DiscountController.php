@@ -16,12 +16,18 @@ use Illuminate\Http\Response;
 
 class DiscountController extends Controller
 {
+    /**
+     * List discounts.
+     */
     public function index(IndexDiscountRequest $request, IndexDiscountAction $action): JsonResponse
     {
         $discounts = $action->handle($request);
         return response()->json($discounts, Response::HTTP_OK);
     }
 
+    /**
+     * Create a new discount.
+     */
     public function store(CreateDiscountRequest $request): JsonResponse
     {
         $payload = $request->validated();
@@ -31,12 +37,18 @@ class DiscountController extends Controller
         return response()->json($discount, Response::HTTP_CREATED);
     }
 
+    /**
+     * Show a discount.
+     */
     public function show(Discount $discount, ShowDiscountRequest $request, ShowDiscountAction $action): JsonResponse
     {
         $discount = $action->handle($discount, $request);
         return response()->json($discount, Response::HTTP_OK);
     }
 
+    /**
+     * Update a discount.
+     */
     public function update(Discount $discount, UpdateDiscountRequest $request): JsonResponse
     {
         $validated = $request->validated();
@@ -46,6 +58,9 @@ class DiscountController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Delete a discount.
+     */
     public function destroy(Discount $discount): JsonResponse
     {
         $discount->delete();
@@ -53,6 +68,9 @@ class DiscountController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Set the active status of a discount.
+     */
     public function setActiveStatus(Discount $discount, SetActiveStatusDiscountRequest $request): JsonResponse
     {
         $validated = $request->validated();
