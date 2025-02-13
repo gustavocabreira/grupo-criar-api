@@ -16,6 +16,10 @@ class IndexClusterAction
             $cluster->with($request->input('includes'));
         }
 
+        if ($request->has('name')) {
+            $cluster->filterByName($request->input('name'));
+        }
+
         return $cluster->paginate($request->input('perPage') ?? 10);
 
     }

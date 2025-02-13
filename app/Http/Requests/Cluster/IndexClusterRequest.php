@@ -27,6 +27,7 @@ class IndexClusterRequest extends FormRequest
             'includes.*' => ['string', 'in:cities,activeCities'],
             'perPage' => ['sometimes', 'integer', 'min:1'],
             'page' => ['sometimes', 'integer', 'min:1'],
+            'name' => ['sometimes', 'string'],
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\ClusterObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -34,5 +35,10 @@ class Cluster extends Model
     public function activeCities(): BelongsToMany
     {
         return $this->cities()->wherePivot('is_active', true);
+    }
+
+    public function scopeFilterByName(Builder $query, string $name): Builder
+    {
+        return $query->where('name', 'LIKE', '%' . $name . '%');
     }
 }
