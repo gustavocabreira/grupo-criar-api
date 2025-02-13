@@ -5,13 +5,17 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-test('it should be able to create an attachment', function () {
+dataset('valid_payload', [
+    'images' => [
+        ['image' => UploadedFile::fake()->image('example.jpg')],
+        ['image' => UploadedFile::fake()->image('example.png')],
+        ['image' => UploadedFile::fake()->image('example.jpeg')],
+    ],
+]);
+
+test('it should be able to create an attachment', function ($payload) {
     $model = new Attachment();
     Storage::fake('temp');
-
-    $payload = [
-        'image' => UploadedFile::fake()->image('example.jpg'),
-    ];
 
     $response = $this->postJson(route('api.attachments.store'), $payload);
 
@@ -25,7 +29,7 @@ test('it should be able to create an attachment', function () {
     $this->assertDatabaseCount($model->getTable(), 1);
 
     Storage::disk('temp')->assertExists($response->json()['path']);
-});
+})->with('valid_payload');
 
 dataset('invalid_payload', [
     'empty image' => [
