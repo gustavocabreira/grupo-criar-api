@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\ClusterCityController;
 use App\Http\Controllers\Api\ClusterController;
 use App\Http\Controllers\Api\DiscountController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,4 +54,6 @@ Route::name('api.')->group(function () {
 
     Route::apiResource('discounts', DiscountController::class);
     Route::patch('discounts/{discount}/set-active-status', [DiscountController::class, 'setActiveStatus'])->name('discounts.set-active-status');
+
+    Route::apiResource('products', ProductController::class);
 });
