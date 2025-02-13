@@ -3,20 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\State\CreateStateAction;
+use App\Actions\State\IndexStateAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\State\CreateStateRequest;
+use App\Http\Requests\State\IndexStateRequest;
+use App\Http\Requests\State\SetActiveStatusStateRequest;
 use App\Http\Requests\State\UpdateStateRequest;
 use App\Models\State;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class StateController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(IndexStateRequest $request, IndexStateAction $action): JsonResponse
     {
-        $states = State::query()->paginate($request->input('perPage') ?? 10);
-
+        $states = $action->handle($request);
         return response()->json($states, Response::HTTP_OK);
     }
 
@@ -48,11 +49,9 @@ class StateController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function setActiveStatus(State $state, Request $request): JsonResponse
+    public function setActiveStatus(State $state, SetActiveStatusStateRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'is_active' => ['required', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $state->update($validated);
 
