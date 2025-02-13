@@ -24,7 +24,7 @@ class IndexCampaignRequest extends FormRequest
     {
         return [
             'includes' => ['sometimes', 'array'],
-            'includes.*' => ['string', 'in:activeDiscounts,discounts'],
+            'includes.*' => ['string', 'in:activeDiscounts,discounts,activeClusters,clusters'],
             'perPage' => ['sometimes', 'integer', 'min:1'],
         ];
     }

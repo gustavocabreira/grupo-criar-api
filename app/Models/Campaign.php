@@ -33,6 +33,11 @@ class Campaign extends Model
             ->withTimestamps();
     }
 
+    public function activeClusters(): BelongsToMany
+    {
+        return $this->clusters()->wherePivot('is_active', true);
+    }
+
     public function discounts(): BelongsToMany
     {
         return $this
