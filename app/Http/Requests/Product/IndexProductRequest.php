@@ -27,6 +27,7 @@ class IndexProductRequest extends FormRequest
             'page' => ['nullable', 'integer', 'min:1'],
             'includes' => ['nullable', 'array'],
             'includes.*' => ['string', 'in:attachments'],
+            'name' => ['nullable', 'string'],
         ];
     }
 }

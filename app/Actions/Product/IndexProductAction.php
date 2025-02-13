@@ -16,6 +16,10 @@ class IndexProductAction
             $products->with($request->input('includes'));
         }
 
+        if ($request->has('name')) {
+            $products->filterByName($request->input('name'));
+        }
+
         return $products->paginate($request->input('perPage') ?? 10);
     }
 }
