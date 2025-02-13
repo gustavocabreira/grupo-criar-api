@@ -57,3 +57,21 @@ test('it should be able to set how many products will be returned per page', fun
         ->and($response->json()['per_page'])->toBe($payload['perPage'])
         ->and($response->json()['total'])->toBe(5);
 });
+
+test('it should be able to changes pages', function () {
+    Product::factory()->count(5)->create();
+
+    $payload = [
+        'perPage' => 2,
+        'page' => 2,
+    ];
+
+    $response = $this->getJson(route('api.products.index', $payload));
+
+    $response->assertStatus(Response::HTTP_OK);
+
+    expect($response->json()['data'])->toHaveCount(2)
+        ->and($response->json()['current_page'])->toBe($payload['page'])
+        ->and($response->json()['per_page'])->toBe($payload['perPage'])
+        ->and($response->json()['total'])->toBe(5);
+});
