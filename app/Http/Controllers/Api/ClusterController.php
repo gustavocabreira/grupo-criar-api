@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Cluster\IndexClusterAction;
+use App\Actions\Cluster\ShowClusterAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cluster\CreateClusterRequest;
+use App\Http\Requests\Cluster\IndexClusterRequest;
+use App\Http\Requests\Cluster\SetActiveStatusClusterRequest;
+use App\Http\Requests\Cluster\ShowClusterRequest;
+use App\Http\Requests\Cluster\UpdateClusterRequest;
 use App\Models\Cluster;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,10 +17,9 @@ use Illuminate\Http\Response;
 
 class ClusterController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(IndexClusterRequest $request, IndexClusterAction $action): JsonResponse
     {
-        $cluster = Cluster::query()->paginate($request->input('perPage') ?? 10);
-
+        $cluster = $action->handle($request);
         return response()->json($cluster, Response::HTTP_OK);
     }
 
@@ -27,18 +32,15 @@ class ClusterController extends Controller
         return response()->json($cluster, Response::HTTP_CREATED);
     }
 
-    public function show(Cluster $cluster): JsonResponse
+    public function show(Cluster $cluster, ShowClusterRequest $request, ShowClusterAction $action): JsonResponse
     {
-        $cluster->load('activeCities');
-
+        $cluster = $action->handle($cluster, $request);
         return response()->json($cluster, Response::HTTP_OK);
     }
 
-    public function update(Cluster $cluster, Request $request): JsonResponse
+    public function update(Cluster $cluster, UpdateClusterRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-        ]);
+        $validated = $request->validated();
 
         $cluster->update($validated);
 
@@ -52,11 +54,9 @@ class ClusterController extends Controller
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function setActiveStatus(Cluster $cluster, Request $request): JsonResponse
+    public function setActiveStatus(Cluster $cluster, SetActiveStatusClusterRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'is_active' => ['required', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $cluster->update($validated);
 
