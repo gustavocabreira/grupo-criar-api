@@ -10,4 +10,11 @@ class StateObserver
     {
         $state->is_active = true;
     }
+
+    public function updated(State $state)
+    {
+        if (!$state->is_active) {
+            $state->cities()->update(['is_active' => false]);
+        }
+    }
 }
