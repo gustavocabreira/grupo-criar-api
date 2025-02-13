@@ -12,18 +12,27 @@ use Illuminate\Http\Response;
 
 class CampaignClusterController extends Controller
 {
+    /**
+     * Assign clusters to a campaign.
+     */
     public function postAssignClusters(Campaign $campaign, AssignClustersRequest $request, AssignClustersAction $action): JsonResponse
     {
         $campaign = $action->handle($campaign, $request);
         return response()->json($campaign, Response::HTTP_CREATED);
     }
 
+    /**
+     * Sync clusters to a campaign.
+     */
     public function postSyncClusters(Campaign $campaign, AssignClustersRequest $request, SyncClustersAction $action): JsonResponse
     {
         $campaign = $action->handle($campaign, $request);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Remove clusters from a campaign.
+     */
     public function postRemoveClusters(Campaign $campaign, AssignClustersRequest $request): JsonResponse
     {
         $request->validated();
