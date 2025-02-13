@@ -10,7 +10,9 @@ test('it should be able to list all cities paginated', function () {
 
     City::factory()->createMany(5);
 
-    $response = $this->getJson(route('api.cities.index'));
+    $response = $this->getJson(route('api.cities.index', [
+        'includes' => 'state',
+    ]));
 
     $response
         ->assertStatus(Response::HTTP_OK)
