@@ -3,6 +3,7 @@
 ## Sobre o projeto
 
 O projeto é uma API para gerenciar estados, cidades, clusters (grupo de cidades), campanhas, descontos e produtos.
+A ideia principal é fazer com que uma lista de campanhas retorne seus produtos com o preço final.
 
 ## Tecnologias Utilizadas
 
