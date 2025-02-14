@@ -57,16 +57,29 @@ sh start.sh
 
 7. Você pode acessar a documentação do projeto em http://localhost/docs/api
 
-## Código de Respostas HTTP
+## Exemplo de requisição
 
-| Código | Descrição |
-|--------|-----------|
-| 200 | OK |
-| 201 | Created |
-| 204 | No Content |
-| 404 | Not Found |
-| 422 | Unprocessable Entity |
-| 500 | Unprocessable Entity |
+```sh
+curl --request POST \
+  --url http://localhost/api/states \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "name": "string",
+  "acronym": "st"
+}'
+```
+
+## Código de respostas HTTP
+
+| Código | Descrição             |
+|--------|-----------------------|
+| 200 | OK                    |
+| 201 | Created               |
+| 204 | No Content            |
+| 404 | Not Found             |
+| 422 | Unprocessable Entity  |
+| 500 | Internal Server Error |
 
 ## Fluxgrama de uso
 
