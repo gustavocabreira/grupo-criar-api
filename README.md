@@ -12,7 +12,7 @@ O projeto é uma API para gerenciar estados, cidades, clusters (grupo de cidades
 - MySQL
 - Docker e Docker Compose
 - Pest (Testes)
-- Scrumble (Documentação)
+- Scramble (Documentação)
 
 ## Instalação
 
