@@ -87,7 +87,7 @@ curl --request POST \
 
 ## Testes
 
-Os testes do projeto estão no diretório `tests/` e foram desenvolvidos utilizando o pacote Pest.
+Os testes do projeto estão no diretório `tests/` e foram desenvolvidos utilizando o pacote [Pest](https://pestphp.com/docs/installation).
 Pest é uma biblioteca de testes para PHP que permite escrever testes de forma fácil e rápida.
 
 Para executar os testes, siga os passos abaixo:
@@ -105,5 +105,8 @@ docker compose exec -it laravel sh
 php artisan test
 ```
 
+### Execução dos testes
 ![Testes](public/images/tests.png)
+
+### Cobertura de testes
 ![Cobertura de Testes](public/images/tests_coverage.png)
