@@ -57,6 +57,21 @@ sh start.sh
 
 7. Você pode acessar a documentação do projeto em http://localhost/docs/api
 
+## Código de Respostas HTTP
+
+| Código | Descrição |
+|--------|-----------|
+| 200 | OK |
+| 201 | Created |
+| 204 | No Content |
+| 404 | Not Found |
+| 422 | Unprocessable Entity |
+| 500 | Unprocessable Entity |
+
+## Fluxgrama de uso
+
+![Flow](public/images/flow.png)
+
 ## Testes
 
 Os testes do projeto estão no diretório `tests/` e foram desenvolvidos utilizando o pacote Pest.
