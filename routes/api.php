@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AttachmentController;
 use App\Http\Controllers\Api\CampaignClusterController;
 use App\Http\Controllers\Api\CampaignController;
 use App\Http\Controllers\Api\CampaignDiscountController;
+use App\Http\Controllers\Api\CampaignProductController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\ClusterCityController;
 use App\Http\Controllers\Api\ClusterController;
@@ -51,6 +52,13 @@ Route::name('api.')->group(function () {
         ->group(function () {
             Route::post('{campaign}/assign-discount', 'postAssignDiscount')->name('campaigns.assign-discount');
             Route::post('{campaign}/remove-discount', 'postRemoveDiscount')->name('campaigns.remove-discount');
+        });
+
+    Route::prefix('campaigns')
+        ->controller(CampaignProductController::class)
+        ->group(function () {
+            Route::post('{campaign}/assign-product', 'postAssignProduct')->name('campaigns.assign-product');
+            Route::post('{campaign}/remove-product', 'postRemoveProduct')->name('campaigns.remove-product');
         });
 
     Route::apiResource('discounts', DiscountController::class);

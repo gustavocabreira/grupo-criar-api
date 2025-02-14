@@ -50,4 +50,11 @@ class Campaign extends Model
     {
         return $this->discounts()->wherePivot('is_active', true);
     }
+
+    public function products(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Product::class, 'campaign_product_pivot')
+            ->withTimestamps();
+    }
 }
