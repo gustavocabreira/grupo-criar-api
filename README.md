@@ -2,7 +2,7 @@
 
 ## Sobre o projeto
 
-O projeto é um grupo criar, onde você deve criar uma api para gerenciar estados, cidades, clusters, campanhas, descontos e produtos.
+O projeto é uma API para gerenciar estados, cidades, clusters (grupo de cidades), campanhas, descontos e produtos.
 
 ## Tecnologias Utilizadas
 
