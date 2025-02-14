@@ -27,6 +27,8 @@ while true; do
     esac
 done
 
+cp .env.example .env
+
 sed -i "s|app_name|$APP_NAME|g" .env
 
 ./set_storage.sh
