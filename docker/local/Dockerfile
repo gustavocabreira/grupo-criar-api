@@ -33,7 +33,8 @@ RUN apk update && apk add --no-cache \
     linux-headers \
     gd \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd
+    && docker-php-ext-install gd \
+    && docker-php-ext-install intl
 
 RUN pecl install swoole && docker-php-ext-enable swoole
 RUN pecl install redis && docker-php-ext-enable redis
