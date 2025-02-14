@@ -72,14 +72,14 @@ curl --request POST \
 
 ## Código de respostas HTTP
 
-| Código | Descrição             |
-|--------|-----------------------|
-| 200 | OK                    |
-| 201 | Created               |
-| 204 | No Content            |
-| 404 | Not Found             |
-| 422 | Unprocessable Entity  |
-| 500 | Internal Server Error |
+| Código | Descrição              | Explicação                                                                     | 
+|--------|------------------------|--------------------------------------------------------------------------------|
+| 200 | OK                        | A requisição performou com sucesso.                                            |
+| 201 | Created                   | O recurso foi criado com sucesso.                                              |
+| 204 | No Content                | A requisição performou com sucesso, mas não retornou nenhum conteúdo.          |
+| 404 | Not Found                 | O recurso não foi encontrado.                                                  |
+| 422 | Unprocessable Entity      | O recurso não pode ser processado devido a um erro nas informações fornecidas. |
+| 500 | Internal Server Error     | Ocorreu um erro no servidor.                                                   |
 
 ## Fluxgrama de uso
 
