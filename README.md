@@ -56,3 +56,26 @@ sh start.sh
 6. Acesse a aplicação em http://localhost
 
 7. Você pode acessar a documentação do projeto em http://localhost/docs/api
+
+## Testes
+
+Os testes do projeto estão no diretório `tests/` e foram desenvolvidos utilizando o pacote Pest.
+Pest é uma biblioteca de testes para PHP que permite escrever testes de forma fácil e rápida.
+
+Para executar os testes, siga os passos abaixo:
+
+1. Acesse o diretório /docker/local
+2. Execute o comando para interagir com o container
+
+```bash
+docker compose exec -it laravel sh
+```
+
+3. Execute o seguinte comando
+
+```bash
+php artisan test
+```
+
+![Testes](public/images/tests.png)
+![Cobertura de Testes](public/images/tests_coverage.png)
