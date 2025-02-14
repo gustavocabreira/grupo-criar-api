@@ -25,6 +25,10 @@ class Campaign extends Model
         'is_active' => 'boolean',
     ];
 
+    protected $with = [
+        'products',
+    ];
+
     public function clusters(): BelongsToMany
     {
         return $this

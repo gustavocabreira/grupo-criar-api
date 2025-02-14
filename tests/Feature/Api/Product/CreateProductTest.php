@@ -15,8 +15,10 @@ test('it should be able to create a product', function () {
 
     $response
         ->assertStatus(Response::HTTP_CREATED)
-        ->assertJsonStructure($model->getFillable());
+        ->assertJsonStructure(['id', 'name', 'description', 'price']);
 
+
+    unset($payload['final_price']);
     $this->assertDatabaseHas($model->getTable(), $payload);
     $this->assertDatabaseCount($model->getTable(), 1);
 });

@@ -13,6 +13,7 @@ test('it should be able to update a product', function () {
 
     $response->assertStatus(Response::HTTP_NO_CONTENT);
 
+    unset($payload['final_price']);
     $this->assertDatabaseHas($model->getTable(), ['id' => $product->id, ...$payload]);
 });
 

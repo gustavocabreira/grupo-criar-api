@@ -28,6 +28,10 @@ class Product extends Model
         'is_active' => 'boolean',
     ];
 
+    protected $appends = [
+        'final_price',
+    ];
+
     public function attachments(): BelongsToMany
     {
         return $this
@@ -39,4 +43,46 @@ class Product extends Model
     {
         return $query->where('name', 'LIKE', '%' . $name . '%');
     }
+
+    public function campaigns(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Campaign::class, 'campaign_product_pivot')
+            ->withTimestamps();
+    }
+
+    public function getFinalPriceAttribute(): float
+    {
+        $campaigns = $this->relationLoaded('campaigns')
+            ? $this->campaigns
+            : $this->campaigns()->with('discounts')->get();
+
+        if ($campaigns->isEmpty()) {
+            return $this->price;
+        }
+
+        $discounts = $campaigns->flatMap(fn ($campaign) => $campaign->discounts);
+
+        if ($discounts->isEmpty()) {
+            return $this->price;
+        }
+
+        $price = $this->price;
+
+        foreach ($discounts as $discount) {
+            if ($discount->percentage) {
+                $price -= ($price * ($discount->percentage / 100));
+            }
+        }
+
+        foreach ($discounts as $discount) {
+            if ($discount->value) {
+                $price -= $discount->value;
+            }
+        }
+
+        return max(0, $price);
+    }
+
+
 }
