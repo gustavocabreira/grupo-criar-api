@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Attachment;
+use App\Models\Campaign;
+use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -80,4 +82,27 @@ test('it should be able to attach an image to a product', function () {
             'attachment_id' => $attachment->id,
         ]);
     });
+});
+
+test('it should be able to calculate the final price of a product', function () {
+    $campaign = Campaign::factory()->create();
+    $discount = Discount::factory()->create([
+        'value' => 10,
+        'percentage' => 10,
+    ]);
+
+    $campaign->discounts()->attach($discount);
+
+    $attachment = Attachment::factory()->create();
+
+    $product = Product::factory()->create([
+        'name' => 'Test Product',
+        'description' => 'Test Description',
+        'price' => 100,
+    ]);
+
+    $product->attachments()->attach($attachment);
+    $campaign->products()->attach($product);
+
+    expect($product->final_price)->toBe(80.0);
 });
